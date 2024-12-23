@@ -80,6 +80,8 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
         driver.quit()
 
 def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, device_id, created_by_task_id):
+    global events_str
+
     # Chrome 浏览器选项
     chrome_options = Options()
 
@@ -128,6 +130,23 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
                 cookie_string = ";".join([f"{cookie['name']}:{cookie['value']}" for cookie in cookies if cookie['name'] in ['_ga', '_ga_HNRD6KMSBG']])
 
                 RequestsHandler.handle_fb_user(device_id, cookie_string, created_by_task_id)
+
+                # 设置event
+                events_str = ','.join(events)
+
+                cookies = [{
+                    'name': "custom_incremented_d8e6cfd10abd4f3abadd4fd2d1b664e2",
+                    'value': events_str
+                }]
+
+                for cookie in cookies:
+                    driver.add_cookie(cookie)
+
+                # 确认是否已成功添加Cookie
+                cookies = driver.get_cookies()
+                print(cookies)  # 打印所有当前的Cookies
+
+                time.sleep(3)
 
                 i += 1
 
