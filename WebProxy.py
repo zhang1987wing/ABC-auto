@@ -1,8 +1,8 @@
 import random
 import time
 from selenium import webdriver
-from selenium.webdriver.edge.options import Options
 import pyautogui
+from selenium.webdriver.chrome.options import Options
 
 import ReadCookie
 
@@ -26,14 +26,14 @@ def run():
     random_server = random.choice(PROXY_SERVER)
     random_username = random.choice(PROXY_USERNAME)
 
-    # Edge 浏览器选项
-    edge_options = Options()
+    # Chrome 浏览器选项
+    chrome_options = Options()
 
     # 设置代理
-    edge_options.add_argument(f"--proxy-server=http://{random_server}")
+    chrome_options.add_argument(f"--proxy-server=http://{random_server}")
 
     # 初始化 EdgeDriver
-    driver = webdriver.Edge(options=edge_options)
+    driver = webdriver.Chrome(options=chrome_options)
 
     try:
         # 打开目标网址
@@ -52,23 +52,30 @@ def run():
 
         # 循环访问页面
         i = 1
-        while i < 9:
+        while i < 2:
             # 清除所有Cookies
             driver.delete_all_cookies()
 
             # 访问目标URL
-            url = f"https://fb-test-sd.vercel.app/room/{i * 111}"
+            url = f"https://fb-test-sd.vercel.app/"
             driver.get(url)
             print(f"访问 {url}")
 
             # 设置一个Cookie
-            random_cookie = ReadCookie.read_edge_cookie()
+            existing_fb_users = ['_GA:GA1.1.1318980546.1734180344;_ga_HNRD6KMSBG:GS1.1.1734180344.1']
+            events = ['click', 'send_message']
+            random_cookie = random.choice(existing_fb_users)
+            events_str = ','.join(events)
+
             cookies = [{
-                'name': '_ga',
-                'value': random_cookie['GA'],
+                'name': random_cookie.split(';')[0].split(':')[0],
+                'value': random_cookie.split(';')[0].split(':')[1],
             }, {
-                'name': '_ga_HNRD6KMSBG',
-                'value': random_cookie['GS'],
+                'name': random_cookie.split(';')[1].split(':')[0],
+                'value': random_cookie.split(';')[1].split(':')[1],
+            }, {
+                'name': "custom_incremented_d8e6cfd10abd4f3abadd4fd2d1b664e2",
+                'value': events_str
             }]
             for cookie in cookies:
                 driver.add_cookie(cookie)
@@ -78,14 +85,14 @@ def run():
             print(cookies)  # 打印所有当前的Cookies
 
             i += 1
-            time.sleep(2)
+            time.sleep(5)
 
     except Exception as e:
         print(f"出错: {e}")
 
     finally:
         # 关闭浏览器
-        driver.quit()
+        #driver.quit()
+        print()
 
-while(True):
-    run()
+run()

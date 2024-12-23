@@ -6,6 +6,29 @@ import FirefoxProxy
 import RequestsHandler
 import SafariProxy
 
+def get_proxy_username(device_id):
+
+    proxy_username = ''
+
+    if device_id in (1, 5):
+        proxy_username = ["storm-shuaizhang4476"]
+    elif device_id in (2, 6):
+        proxy_username = ["storm-shuaizhang4476_area-US"]
+    elif device_id(3, 7):
+        proxy_username = ["storm-shuaizhang4476_area-SG",
+                          "storm-shuaizhang4476_area-JP",
+                          "storm-shuaizhang4476_area-KR",
+                          "storm-shuaizhang4476_area-VN"]
+    elif device_id in (4, 8):
+        proxy_username = ["storm-shuaizhang4476_area-RU",
+                          "storm-shuaizhang4476_area-GB",
+                          "storm-shuaizhang4476_area-DE"]
+    else:
+        proxy_username = ["storm-shuaizhang4476"]
+
+
+    return proxy_username;
+
 def run(device_id):
     # 配置代理和用户信息
 
@@ -49,36 +72,8 @@ def run(device_id):
     if new_count > 0:
         for i in range(new_count):
             if device_id in (1, 2, 3, 4):
-                if device_id == 1:
-                    PROXY_USERNAME = ["storm-shuaizhang4476"]
-                elif device_id == 2:
-                    PROXY_USERNAME = ["storm-shuaizhang4476_area-US"]
-                elif device_id == 3:
-                    PROXY_USERNAME = ["storm-shuaizhang4476_area-SG",
-                      "storm-shuaizhang4476_area-JP",
-                      "storm-shuaizhang4476_area-KR",
-                      "storm-shuaizhang4476_area-VN"]
-                else:
-                    PROXY_USERNAME = ["storm-shuaizhang4476_area-RU",
-                      "storm-shuaizhang4476_area-GB",
-                      "storm-shuaizhang4476_area-DE"]
-
                 ChromeProxy.run_new(proxy_server, proxy_username, proxy_password, target_urls, events, device_id, created_by_task_id)
             elif device_id in (5, 6, 7, 8):
-                if device_id == 5:
-                    PROXY_USERNAME = ["storm-shuaizhang4476"]
-                elif device_id == 6:
-                    PROXY_USERNAME = ["storm-shuaizhang4476_area-US"]
-                elif device_id == 7:
-                    PROXY_USERNAME = ["storm-shuaizhang4476_area-SG",
-                      "storm-shuaizhang4476_area-JP",
-                      "storm-shuaizhang4476_area-KR",
-                      "storm-shuaizhang4476_area-VN"]
-                else:
-                    PROXY_USERNAME = ["storm-shuaizhang4476_area-RU",
-                      "storm-shuaizhang4476_area-GB",
-                      "storm-shuaizhang4476_area-DE"]
-
                 FirefoxProxy.run_new(proxy_server, proxy_username, proxy_password, target_urls, events, device_id, created_by_task_id)
             else:
                 SafariProxy.run_new(target_urls, events, device_id, created_by_task_id)
@@ -86,35 +81,8 @@ def run(device_id):
     if existing_user_count > 0:
         for i in range(existing_user_count):
             if device_id in (1, 2, 3, 4):
-                if device_id == 1:
-                    PROXY_USERNAME = ["storm-shuaizhang4476"]
-                elif device_id == 2:
-                    PROXY_USERNAME = ["storm-shuaizhang4476_area-US"]
-                elif device_id == 3:
-                    PROXY_USERNAME = ["storm-shuaizhang4476_area-SG",
-                                      "storm-shuaizhang4476_area-JP",
-                                      "storm-shuaizhang4476_area-KR",
-                                      "storm-shuaizhang4476_area-VN"]
-                else:
-                    PROXY_USERNAME = ["storm-shuaizhang4476_area-RU",
-                                      "storm-shuaizhang4476_area-GB",
-                                      "storm-shuaizhang4476_area-DE"]
                 ChromeProxy.run_existing(proxy_server, proxy_username, proxy_password, existing_fb_users, target_urls, events)
             elif device_id in (5, 6, 7, 8):
-                if device_id == 5:
-                    PROXY_USERNAME = ["storm-shuaizhang4476"]
-                elif device_id == 6:
-                    PROXY_USERNAME = ["storm-shuaizhang4476_area-US"]
-                elif device_id == 7:
-                    PROXY_USERNAME = ["storm-shuaizhang4476_area-SG",
-                                      "storm-shuaizhang4476_area-JP",
-                                      "storm-shuaizhang4476_area-KR",
-                                      "storm-shuaizhang4476_area-VN"]
-                else:
-                    PROXY_USERNAME = ["storm-shuaizhang4476_area-RU",
-                                      "storm-shuaizhang4476_area-GB",
-                                      "storm-shuaizhang4476_area-DE"]
-
                 FirefoxProxy.run_new(proxy_server, proxy_username, proxy_password, target_urls, events,
                                      device_id, created_by_task_id)
             else:
