@@ -27,6 +27,8 @@ def run_existing(existing_fb_users, target_urls, events):
 
         target_url_list = Utils.handle_target_url(target_urls)
         for target_url in target_url_list:
+            time.sleep(random.randint(1, 10))
+
             while i < 4:
                 # 清除所有Cookies
                 driver.delete_all_cookies()
@@ -87,6 +89,8 @@ def run_new(target_urls, events, device_id, created_by_task_id):
 
         target_url_list = Utils.handle_target_url(target_urls)
         for target_url in target_url_list:
+            time.sleep(random.randint(1, 10))
+
             while i < 2:
                 # 清除所有Cookies
                 driver.delete_all_cookies()

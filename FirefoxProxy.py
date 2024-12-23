@@ -52,6 +52,8 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
         target_url_list = Utils.handle_target_url(target_urls)
 
         for target_url in target_url_list:
+            time.sleep(random.randint(1, 10))
+
             while i < 4:
                 # 清除所有Cookies
                 driver.delete_all_cookies()
@@ -133,6 +135,8 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
         target_url_list = Utils.handle_target_url(target_urls)
 
         for target_url in target_url_list:
+            time.sleep(random.randint(1, 10))
+
             while i < 2:
                 # 清除所有Cookies
                 driver.delete_all_cookies()
