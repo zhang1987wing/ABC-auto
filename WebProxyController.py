@@ -35,7 +35,7 @@ def run(device_id):
     print(response_json)
 
     proxy_server = response_json["proxy"]["proxy_address"] + ":" + str(response_json["proxy"]["proxy_port"])
-    #proxy_username = response["proxy_address"]
+    proxy_username = response["proxy"]["proxy_username"]
     proxy_password = response_json["proxy"]["proxy_password"]
     new_count = response_json["new_user_count"]
     existing_user_count = response_json["existing_user_count"]
@@ -63,7 +63,7 @@ def run(device_id):
                       "storm-shuaizhang4476_area-GB",
                       "storm-shuaizhang4476_area-DE"]
 
-                ChromeProxy.run_new(proxy_server, random.choice(PROXY_USERNAME), proxy_password, target_urls, events, device_id, created_by_task_id)
+                ChromeProxy.run_new(proxy_server, proxy_username, proxy_password, target_urls, events, device_id, created_by_task_id)
             elif device_id in (5, 6, 7, 8):
                 if device_id == 5:
                     PROXY_USERNAME = ["storm-shuaizhang4476"]
@@ -79,7 +79,7 @@ def run(device_id):
                       "storm-shuaizhang4476_area-GB",
                       "storm-shuaizhang4476_area-DE"]
 
-                FirefoxProxy.run_new(proxy_server, random.choice(PROXY_USERNAME), proxy_password, target_urls, events, device_id, created_by_task_id)
+                FirefoxProxy.run_new(proxy_server, proxy_username, proxy_password, target_urls, events, device_id, created_by_task_id)
             else:
                 SafariProxy.run_new(target_urls, events, device_id, created_by_task_id)
 
@@ -99,7 +99,7 @@ def run(device_id):
                     PROXY_USERNAME = ["storm-shuaizhang4476_area-RU",
                                       "storm-shuaizhang4476_area-GB",
                                       "storm-shuaizhang4476_area-DE"]
-                ChromeProxy.run_existing(proxy_server, random.choice(PROXY_USERNAME), proxy_password, existing_fb_users, target_urls, events)
+                ChromeProxy.run_existing(proxy_server, proxy_username, proxy_password, existing_fb_users, target_urls, events)
             elif device_id in (5, 6, 7, 8):
                 if device_id == 5:
                     PROXY_USERNAME = ["storm-shuaizhang4476"]
@@ -115,7 +115,7 @@ def run(device_id):
                                       "storm-shuaizhang4476_area-GB",
                                       "storm-shuaizhang4476_area-DE"]
 
-                FirefoxProxy.run_new(proxy_server, random.choice(PROXY_USERNAME), proxy_password, target_urls, events,
+                FirefoxProxy.run_new(proxy_server, proxy_username, proxy_password, target_urls, events,
                                      device_id, created_by_task_id)
             else:
                 SafariProxy.run_new(target_urls, events, device_id, created_by_task_id)
