@@ -43,7 +43,7 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
         time.sleep(0.5)
 
         # 打开目标网址
-        driver.get("https://testflight.sending.me/abc.html")
+        driver.get("https://chat.sending.me/abc.html")
         time.sleep(2)
 
         # 设置用户行为
@@ -131,7 +131,7 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
         time.sleep(0.5)
 
         # 打开目标网址
-        driver.get("https://testflight.sending.me/abc.html")
+        driver.get("https://chat.sending.me/abc.html")
         time.sleep(2)
 
         # 清除用户数据

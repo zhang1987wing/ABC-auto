@@ -38,12 +38,15 @@ def handle_task(device_id):
     response = requests.post(url, json=data)
 
     '''
-    response = json.loads(
-        '{"id": 3,"proxy": {"region": "global","proxy_address": "proxy.stormip.cn","proxy_port": 1000,'
-        '"proxy_username": "storm-shuaizhang4476","proxy_password": "zs19974476"},"target_urls": '
-        '"https://fb-test-sd.vercel.app;","new_user_count": 100,"existing_user_count": 0,"existing_fb_users": '
-        '[{"data":"_GA:GA1.1.1318980546.1734180344;_ga_HNRD6KMSBG:GS1.1.1734180344.1"},{"data":"_GA:GA1.1.541331381.1734180353;'
-        '_ga_HNRD6KMSBG:GS1.1.1734180352.1"}],"events": ["sync","send_message"]}')'''
+    response = json.loads("{'id': 409, 'proxy': {'region': 'global', 'proxy_address': 'proxy.stormip.cn', 'proxy_port': 1000, 'proxy_username': 'storm-shuaizhang4476', "
+                          "'proxy_password': 'zs19974476'}, 'new_users_target_urls': ['https://chat.sending.me/#/home', 'https://chat.sending.me/#/discover', "
+                          "'https://chat.sending.me/#/room/!p13HU3XjRIXKGln2-@sdn_0ada666bc21e55ba55a5c36a7fe670c3b13b7579:0ada666bc21e55ba55a5c36a7fe670c3b13b7579'], "
+                          "'existing_users_target_urls': ['https://chat.sending.me/#/room/!p13HU3XjRIXKGln2-@sdn_0ada666bc21e55ba55a5c36a7fe670c3b13b7579:0ada666bc21e55ba55a5c36a7fe670c3b13b7579', "
+                          "'https://chat.sending.me/#/discover'], 'new_user_count': 2, 'existing_user_count': 0, 'existing_fb_users': [], 'new_users_events': "
+                          "['register', 'register_success', 'login', 'login_success', 'set_user_name', 'set_user_name_success', 'onboarding_success', 'sync_start', 'sync_completed', "
+                          "'read_message', 'room_join', 'room_join_success', 'send_message', 'send_message_success'], 'existing_users_events': ['sync_start', 'sync_completed', "
+                          "'room_join', 'room_join_success', 'read_message', 'send_message', 'send_message_success']}")
+                          '''
 
     return response
 
@@ -72,6 +75,7 @@ def handle_fb_user(device_id, cookie, created_by_task_id):
         print(f"请求失败，状态码: {response.status_code}")
 
     return data
+
 
 def get_deviceid(system):
     # 设置请求的 URL 和参数
@@ -103,5 +107,6 @@ def get_deviceid(system):
 
     return device_list
 
-#handle_fb_user(1, "_ga:GA1.1.1318980546.1734180344;_ga_HNRD6KMSBG:GS1.1.1734180344.1.0.1734180350.0.0.0", 1)
+
+# handle_fb_user(1, "_ga:GA1.1.1318980546.1734180344;_ga_HNRD6KMSBG:GS1.1.1734180344.1.0.1734180350.0.0.0", 1)
 get_deviceid("Safari")

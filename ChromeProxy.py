@@ -22,7 +22,7 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
 
     try:
         # 打开目标网址
-        driver.get("https://testflight.sending.me/abc.html")
+        driver.get("https://chat.sending.me/abc.html")
         time.sleep(2)
 
         # 输入用户名和密码（使用 pyautogui 模拟输入）
@@ -99,7 +99,7 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
 
     try:
         # 打开目标网址
-        driver.get("https://testflight.sending.me/abc.html")
+        driver.get("https://chat.sending.me/abc.html")
         time.sleep(2)
 
         # 输入用户名和密码（使用 pyautogui 模拟输入）

@@ -19,7 +19,7 @@ def run_existing(existing_fb_users, target_urls, events):
 
     try:
         # 打开目标网址
-        driver.get("https://testflight.sending.me/abc.html")
+        driver.get("https://chat.sending.me/abc.html")
         time.sleep(2)
 
         # 设置用户行为
@@ -85,7 +85,7 @@ def run_new(target_urls, events, device_id, created_by_task_id):
 
     try:
         # 打开目标网址
-        driver.get("https://testflight.sending.me/abc.html")
+        driver.get("https://chat.sending.me/abc.html")
         time.sleep(2)
 
         # 清除用户数据
