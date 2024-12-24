@@ -44,11 +44,12 @@ def get_proxy_username(device_id):
     else:
         proxy_username = ["storm-shuaizhang4476"]
 
-    return proxy_username;
+    return proxy_username
 
 
 def run(device):
     device_id = device["id"]
+    print(device_id)
 
     response = RequestsHandler.handle_task(device_id)
 
@@ -110,7 +111,7 @@ def run(device):
 
 # run(2)
 # MacOS/Safari/Windows，如果是Safari，固定是9
-device_list = RequestsHandler.get_deviceid("Safari")
+device_list = RequestsHandler.get_deviceid("Windows")
 while True:
     for device in device_list:
         result = run(device)

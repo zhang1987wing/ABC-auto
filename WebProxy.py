@@ -122,15 +122,13 @@ def run_new():
 
     # 设置代理
     chrome_options.add_argument(f"--proxy-server=http://{random_server}")
-    #chrome_options.add_argument("--user-data-dir=C:\Path\To\Your\Chrome\Profile")
 
     # 初始化 EdgeDriver
     driver = webdriver.Chrome(options=chrome_options)
-    #driver = webdriver.Chrome(options=chrome_options)
 
     try:
         # 打开目标网址
-        driver.get("https://testflight.sending.me/abc.html")
+        driver.get("https://chat.sending.me/abc.html")
         time.sleep(5)
 
         # 输入用户名和密码（使用 pyautogui 模拟输入）
@@ -143,6 +141,10 @@ def run_new():
         pyautogui.press("enter")
         time.sleep(5)
 
+        # 清除用户数据
+        driver.delete_cookie("_ga")
+        driver.delete_cookie("_ga_822RN0ZE72")
+
         #设置新用户行为
         events = ['register', 'register_success', 'login', 'login_success', 'set_user_name',
                   'set_user_name_success', 'sync_start', 'sync_completed', 'room_join', 'room_join_success',
@@ -152,10 +154,6 @@ def run_new():
         cookies = [{
             'name': "custom_incremented_d8e6cfd10abd4f3abadd4fd2d1b664e2",
             'value': events_str,
-            'domain':'testflight.sending.me',
-            'path':'/',
-            'secure':True,
-            'httpOnly':False
         }]
 
         for cookie in cookies:
@@ -170,11 +168,9 @@ def run_new():
         i = 1
         while i < 2:
             # 清除用户数据
-            driver.delete_cookie("_ga")
-            driver.delete_cookie("_ga_822RN0ZE72")
 
             # 访问目标URL
-            url = f"https://testflight.sending.me/#/home"
+            url = f"https://chat.sending.me/#/home"
             driver.get(url)
             print(f"访问 {url}")
 
