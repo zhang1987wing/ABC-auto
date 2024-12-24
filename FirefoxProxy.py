@@ -49,9 +49,9 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
         # 循环访问页面
         i = 1
 
-        target_url_list = Utils.handle_target_url(target_urls)
+        #target_url_list = Utils.handle_target_url(target_urls)
 
-        for target_url in target_url_list:
+        for target_url in target_urls:
             time.sleep(random.randint(1, 10))
 
             while i < 4:
@@ -134,9 +134,9 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
 
         # 循环访问页面
         i = 1
-        target_url_list = Utils.handle_target_url(target_urls)
+        #target_url_list = Utils.handle_target_url(target_urls)
 
-        for target_url in target_url_list:
+        for target_url in target_urls:
             time.sleep(random.randint(1, 10))
 
             while i < 2:

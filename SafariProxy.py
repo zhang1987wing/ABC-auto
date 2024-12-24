@@ -25,8 +25,8 @@ def run_existing(existing_fb_users, target_urls, events):
         # 循环访问页面
         i = 1
 
-        target_url_list = Utils.handle_target_url(target_urls)
-        for target_url in target_url_list:
+        #target_url_list = Utils.handle_target_url(target_urls)
+        for target_url in target_urls:
             time.sleep(random.randint(1, 10))
 
             while i < 4:
@@ -88,8 +88,8 @@ def run_new(target_urls, events, device_id, created_by_task_id):
         # 循环访问页面
         i = 1
 
-        target_url_list = Utils.handle_target_url(target_urls)
-        for target_url in target_url_list:
+        #target_url_list = Utils.handle_target_url(target_urls)
+        for target_url in target_urls:
             time.sleep(random.randint(1, 10))
 
             while i < 2:

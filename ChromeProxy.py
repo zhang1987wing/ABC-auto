@@ -35,9 +35,9 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
 
         # 循环访问页面
         i = 1
-        target_url_list = Utils.handle_target_url(target_urls)
+       # target_url_list = Utils.handle_target_url(target_urls)
 
-        for target_url in target_url_list:
+        for target_url in target_urls:
             time.sleep(random.randint(1, 10))
 
             while i < 2:
@@ -106,20 +106,33 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
         pyautogui.press("enter")
         time.sleep(0.5)
 
+        # 设置新用户行为
+        events = ['register', 'register_success', 'login', 'login_success', 'set_user_name',
+                  'set_user_name_success', 'sync_start', 'sync_completed', 'room_join', 'room_join_success',
+                  'send_message']
+
+        events_str = ','.join(events)
+        cookies = [{
+            'name': "custom_incremented_d8e6cfd10abd4f3abadd4fd2d1b664e2",
+            'value': events_str
+        }]
+
+        for cookie in cookies:
+            driver.add_cookie(cookie)
+
         # 循环访问页面
         i = 1
 
-        target_url_list = Utils.handle_target_url(target_urls)
-
-        for target_url in target_url_list:
+        for target_url in target_urls:
             time.sleep(random.randint(1, 10))
 
             while i < 2:
-                # 清除所有Cookies
-                driver.delete_all_cookies()
+                # 清除用户数据
+                driver.delete_cookie("_ga")
+                driver.delete_cookie("_ga_822RN0ZE72")
 
                 # 访问目标URL
-                driver.get(target_url)
+                driver.get(target_url.replace('chat', 'testflight'))
                 print(target_url)
 
                 time.sleep(5)
@@ -127,10 +140,11 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
                 cookies = driver.get_cookies()
                 print(cookies)  # 打印所有当前的Cookies
 
-                cookie_string = ";".join([f"{cookie['name']}:{cookie['value']}" for cookie in cookies if cookie['name'] in ['_ga', '_ga_HNRD6KMSBG']])
+                cookie_string = ";".join([f"{cookie['name']}:{cookie['value']}" for cookie in cookies if cookie['name'] in ['_ga', '_ga_822RN0ZE72']])
 
                 RequestsHandler.handle_fb_user(device_id, cookie_string, created_by_task_id)
 
+                '''
                 # 设置event
                 events_str = ','.join(events)
 
@@ -145,6 +159,7 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
                 # 确认是否已成功添加Cookie
                 cookies = driver.get_cookies()
                 print(cookies)  # 打印所有当前的Cookies
+                '''
 
                 time.sleep(3)
 

@@ -57,13 +57,13 @@ def run(device_id):
     print(response_json)
 
     proxy_server = response_json["proxy"]["proxy_address"] + ":" + str(response_json["proxy"]["proxy_port"])
-    proxy_username = response["proxy"]["proxy_username"]
+    proxy_username = response_json["proxy"]["proxy_username"]
     proxy_password = response_json["proxy"]["proxy_password"]
     new_count = response_json["new_user_count"]
     existing_user_count = response_json["existing_user_count"]
     existing_fb_users = response_json["existing_fb_users"]
-    new_users_target_urls = response_json["new_users_target_urls"].split(",")[0]
-    existing_users_target_urls = response_json["existing_users_target_urls"].split(",")[0]
+    new_users_target_urls = response_json["new_users_target_urls"]
+    existing_users_target_urls = response_json["existing_users_target_urls"]
     new_users_events = response_json["new_users_events"]
     existing_users_events = response_json["existing_users_events"]
     created_by_task_id = response_json["id"]
@@ -97,7 +97,7 @@ def run(device_id):
 # run(2)
 
 while True:
-    for i in range(1, 8):
+    for i in range(1, 4):
         result = run(i)
 
         if result == 'skip':

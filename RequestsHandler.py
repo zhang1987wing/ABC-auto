@@ -61,6 +61,7 @@ def handle_fb_user(device_id, cookie, created_by_task_id):
 
     # 发送 POST 请求
     response = requests.post(url, json=data)
+    print(response.request.body)
 
     # 处理响应
     if response.status_code == 200 or response.status_code == 201:
