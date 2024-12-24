@@ -96,6 +96,11 @@ def get_deviceid(system):
                 device_list.append(system_info)
                 break
             elif system_info["host_os"] == system:
+                if system_info["host_os"] == 'Windows':
+                    if system_info["platform"] == "Firefox":
+                        continue
+                    else:
+                        device_list.append(system_info)
                 if system_info["platform"] == "Safari":
                     continue
                 else:
