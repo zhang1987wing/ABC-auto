@@ -97,7 +97,7 @@ def run(device_id):
 # run(2)
 
 while True:
-    for i in range(1, 4):
+    for i in range(1, 9):
         result = run(i)
 
         if result == 'skip':

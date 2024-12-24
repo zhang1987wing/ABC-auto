@@ -122,16 +122,14 @@ def run_new():
 
     # 设置代理
     chrome_options.add_argument(f"--proxy-server=http://{random_server}")
-    #chrome_options.add_argument("--user-data-dir=C:\Path\To\Your\Chrome\Profile")
+    #chrome_options.add_argument("--user-data-dir=/Users/qmk/Library/Application Support/Google/Chrome/Profile 1")
 
     # 初始化 EdgeDriver
     driver = webdriver.Chrome(options=chrome_options)
-    #driver = webdriver.Chrome(options=chrome_options)
 
     try:
         # 打开目标网址
         driver.get("https://testflight.sending.me/abc.html")
-        time.sleep(5)
 
         # 输入用户名和密码（使用 pyautogui 模拟输入）
         pyautogui.typewrite(random_username)
@@ -141,7 +139,11 @@ def run_new():
         pyautogui.typewrite(PROXY_PASSWORD)
         time.sleep(0.5)
         pyautogui.press("enter")
-        time.sleep(5)
+        time.sleep(2)
+
+        # 清除用户数据
+        driver.delete_cookie("_ga")
+        driver.delete_cookie("_ga_822RN0ZE72")
 
         #设置新用户行为
         events = ['register', 'register_success', 'login', 'login_success', 'set_user_name',
@@ -167,28 +169,24 @@ def run_new():
         time.sleep(5)
 
         # 循环访问页面
-        i = 1
-        while i < 2:
-            # 清除用户数据
-            driver.delete_cookie("_ga")
-            driver.delete_cookie("_ga_822RN0ZE72")
+        target_urls = ['https://chat.sending.me/#/home', 'https://chat.sending.me/#/discover', 'https://chat.sending.me/#/room/!p13HU3XjRIXKGln2-@sdn_0ada666bc21e55ba55a5c36a7fe670c3b13b7579:0ada666bc21e55ba55a5c36a7fe670c3b13b7579']
+        for target_url in target_urls:
+            time.sleep(random.randint(3, 10))
+            i = 1
+            while i < 2:
+                # 访问目标URL
+                driver.get(target_url.replace('chat', 'testflight'))
+                print(target_url)
 
-            # 访问目标URL
-            url = f"https://testflight.sending.me/#/home"
-            driver.get(url)
-            print(f"访问 {url}")
+                i += 1
 
-            time.sleep(7)
+        cookies = driver.get_cookies()
+        print(cookies)  # 打印所有当前的Cookies
 
-            cookies = driver.get_cookies()
-            print(cookies)  # 打印所有当前的Cookies
-
-            cookie_string = ";".join([f"{cookie['name']}:{cookie['value']}" for cookie in cookies if
-                                      cookie['name'] in ['_ga', '_ga_822RN0ZE72']])
-
+        cookie_string = ";".join([f"{cookie['name']}:{cookie['value']}" for cookie in cookies if
+                                  cookie['name'] in ['_ga', '_ga_822RN0ZE72']])
+        if cookie_string != "":
             RequestsHandler.handle_fb_user(1, cookie_string, 300)
-
-            i += 1
 
     except Exception as e:
         print(f"出错: {e}")
