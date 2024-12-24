@@ -115,7 +115,7 @@ def run_new(target_urls, events, device_id, created_by_task_id):
 
             while i < 2:
                 # 访问目标URL
-                driver.get(target_url.replace('chat', 'testflight'))
+                driver.get(target_url)
                 print(target_url)
 
                 i += 1

@@ -139,7 +139,7 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
 
             while i < 2:
                 # 访问目标URL
-                driver.get(target_url.replace('chat', 'testflight'))
+                driver.get(target_url)
                 print(target_url)
 
                 i += 1
