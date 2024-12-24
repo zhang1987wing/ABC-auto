@@ -73,8 +73,6 @@ def run(device):
 
     # random_server = random.choice(proxy_server)
 
-    device["platform"] = "Firefox"
-
     if new_count > 0:
         for i in range(new_count):
             if device["platform"] == "Chrome":
