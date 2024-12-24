@@ -119,7 +119,8 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
     driver = webdriver.Firefox(options=firefox_options)
 
     try:
-        time.sleep(5)
+        time.sleep(3)
+
         # 输入用户名和密码（使用 pyautogui 模拟输入）
         pyautogui.typewrite(PROXY_USERNAME)
         time.sleep(0.5)
@@ -128,6 +129,7 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
         pyautogui.typewrite(PROXY_PASSWORD)
         time.sleep(0.5)
         pyautogui.press("enter")
+
         time.sleep(0.5)
 
         # 打开目标网址
@@ -181,3 +183,5 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
     finally:
         # 关闭浏览器
         driver.quit()
+
+#run_new("proxy.stormip.cn:1000", "storm-shuaizhang4476", "zs19974476", [], [], 1, 1)
