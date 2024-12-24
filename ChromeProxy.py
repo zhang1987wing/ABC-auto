@@ -132,7 +132,7 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
         time.sleep(5)
 
         for target_url in target_urls:
-            time.sleep(random.randint(3, 10))
+            time.sleep(random.randint(6, 10))
 
             # 循环访问页面
             i = 1
