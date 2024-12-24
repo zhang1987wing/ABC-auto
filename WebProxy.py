@@ -122,13 +122,15 @@ def run_new():
 
     # 设置代理
     chrome_options.add_argument(f"--proxy-server=http://{random_server}")
+    #chrome_options.add_argument("--user-data-dir=C:\Path\To\Your\Chrome\Profile")
 
     # 初始化 EdgeDriver
     driver = webdriver.Chrome(options=chrome_options)
+    #driver = webdriver.Chrome(options=chrome_options)
 
     try:
         # 打开目标网址
-        driver.get("https://testflight.sending.me/#/login")
+        driver.get("https://testflight.sending.me/abc.html")
         time.sleep(5)
 
         # 输入用户名和密码（使用 pyautogui 模拟输入）
@@ -162,7 +164,7 @@ def run_new():
         cookies = driver.get_cookies()
         print(cookies)  # 打印所有当前的Cookies
 
-        time.sleep(30)
+        time.sleep(5)
 
         # 循环访问页面
         i = 1
@@ -176,6 +178,8 @@ def run_new():
             driver.get(url)
             print(f"访问 {url}")
 
+            time.sleep(7)
+
             cookies = driver.get_cookies()
             print(cookies)  # 打印所有当前的Cookies
 
@@ -185,14 +189,12 @@ def run_new():
             RequestsHandler.handle_fb_user(1, cookie_string, 300)
 
             i += 1
-            time.sleep(5)
 
     except Exception as e:
         print(f"出错: {e}")
 
     finally:
         # 关闭浏览器
-        #driver.quit()
-        print()
+        driver.quit()
 
 run_new()
