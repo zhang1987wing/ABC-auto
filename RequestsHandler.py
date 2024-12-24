@@ -73,4 +73,32 @@ def handle_fb_user(device_id, cookie, created_by_task_id):
 
     return data
 
+def get_deviceid(system):
+    # 设置请求的 URL 和参数
+    url = 'https://luckycoin.im/growth-api/device/list'
+
+    # 发送 get 请求
+    response = requests.get(url)
+    device_list = []
+
+    # 处理响应
+    if response.status_code == 200:
+        # 成功响应
+        data = response.json()  # 假设返回的是 JSON 格式
+
+        for system_info in data:
+
+            if system_info["platform"] == system:
+                device_list.append(system_info["id"])
+                break
+            elif system_info["host_os"] == system:
+                device_list.append(system_info["id"])
+            else:
+                continue
+    else:
+        print(f"请求失败，状态码: {response.status_code}")
+
+    return device_list
+
 #handle_fb_user(1, "_ga:GA1.1.1318980546.1734180344;_ga_HNRD6KMSBG:GS1.1.1734180344.1.0.1734180350.0.0.0", 1)
+get_deviceid("Safari")

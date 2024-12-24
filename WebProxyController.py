@@ -95,9 +95,11 @@ def run(device_id):
 
 
 # run(2)
+# Windows/MacOS/Safari，如果是safari，device固定返回9
+device_list = RequestsHandler.get_deviceid("Safari")
 
 while True:
-    for i in range(1, 4):
+    for i in device_list:
         result = run(i)
 
         if result == 'skip':
