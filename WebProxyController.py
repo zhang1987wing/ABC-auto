@@ -47,7 +47,9 @@ def get_proxy_username(device_id):
     return proxy_username;
 
 
-def run(device_id):
+def run(device):
+    device_id = device["id"]
+
     response = RequestsHandler.handle_task(device_id)
 
     if response.status_code not in (200, 201):
@@ -72,33 +74,46 @@ def run(device_id):
 
     if new_count > 0:
         for i in range(new_count):
-            if device_id in (1, 2, 3, 4):
+            if device["platform"] == "Chrome":
                 ChromeProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls,
                                     new_users_events, device_id, created_by_task_id)
-            elif device_id in (5, 6, 7, 8):
+            elif device["platform"] == "Firefox":
                 FirefoxProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls,
                                      new_users_events, device_id, created_by_task_id)
-            else:
+            elif device["platform"] == "Edge":
+                EdgeProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls, new_users_events,
+                                  device_id, created_by_task_id)
+            elif device["platform"] == "Safari":
                 SafariProxy.run_new(new_users_target_urls, new_users_events, device_id, created_by_task_id)
+            else:
+                ChromeProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls,
+                                    new_users_events, device_id, created_by_task_id)
 
     if existing_user_count > 0:
         for i in range(existing_user_count):
-            if device_id in (1, 2, 3, 4):
+            if device["platform"] == "Chrome":
                 ChromeProxy.run_existing(proxy_server, proxy_username, proxy_password, existing_fb_users,
                                          existing_users_target_urls, existing_users_events)
-            elif device_id in (5, 6, 7, 8):
+            elif device["platform"] == "Firefox":
                 FirefoxProxy.run_new(proxy_server, proxy_username, proxy_password, existing_users_target_urls,
                                      existing_users_events,
                                      device_id, created_by_task_id)
-            else:
+            elif device["platform"] == "Edge":
+                EdgeProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls, new_users_events,
+                                  device_id, created_by_task_id)
+            elif device["platform"] == "Safari":
                 SafariProxy.run_new(existing_users_target_urls, existing_users_events, device_id, created_by_task_id)
+            else:
+                ChromeProxy.run_existing(proxy_server, proxy_username, proxy_password, existing_fb_users,
+                                         existing_users_target_urls, existing_users_events)
 
 
 # run(2)
-
+# MacOS/Safari/Windows，如果是Safari，固定是9
+device_list = RequestsHandler.get_deviceid("Safari")
 while True:
-    for i in range(1, 9):
-        result = run(i)
+    for device in device_list:
+        result = run(device)
 
         if result == 'skip':
             continue

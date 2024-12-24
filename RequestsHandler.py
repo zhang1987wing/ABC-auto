@@ -89,10 +89,13 @@ def get_deviceid(system):
         for system_info in data:
 
             if system_info["platform"] == system:
-                device_list.append(system_info["id"])
+                device_list.append(system_info)
                 break
             elif system_info["host_os"] == system:
-                device_list.append(system_info["id"])
+                if system_info["platform"] == "Safari":
+                    continue
+                else:
+                    device_list.append(system_info)
             else:
                 continue
     else:
