@@ -122,9 +122,11 @@ def run_new():
 
     # 设置代理
     chrome_options.add_argument(f"--proxy-server=http://{random_server}")
+    #chrome_options.add_argument("--user-data-dir=C:\Path\To\Your\Chrome\Profile")
 
     # 初始化 EdgeDriver
     driver = webdriver.Chrome(options=chrome_options)
+    #driver = webdriver.Chrome(options=chrome_options)
 
     try:
         # 打开目标网址
@@ -132,7 +134,7 @@ def run_new():
         time.sleep(5)
 
         # 输入用户名和密码（使用 pyautogui 模拟输入）
-        pyautogui.typewrite("storm-shuaizhang4476_area-MO")
+        pyautogui.typewrite(random_username)
         time.sleep(0.5)
         pyautogui.press("tab")
         time.sleep(0.5)
