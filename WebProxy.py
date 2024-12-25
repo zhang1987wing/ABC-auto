@@ -2,13 +2,9 @@ import random
 import time
 from selenium import webdriver
 import pyautogui
-from selenium.webdriver import FirefoxProfile
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.firefox.options import Options
 
-import ReadCookie
 import RequestsHandler
-
 
 def run():
     # 配置代理和用户信息
