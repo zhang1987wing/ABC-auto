@@ -32,6 +32,10 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
 
     try:
         time.sleep(5)
+
+        driver.switch_to.window(driver.current_window_handle)
+        pyautogui.moveTo(100, 100)
+
         # 输入用户名和密码（使用 pyautogui 模拟输入）
         pyautogui.typewrite(PROXY_USERNAME)
         time.sleep(0.5)
@@ -120,6 +124,9 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
 
     try:
         time.sleep(3)
+
+        driver.switch_to.window(driver.current_window_handle)
+        pyautogui.moveTo(100, 100)
 
         # 输入用户名和密码（使用 pyautogui 模拟输入）
         pyautogui.typewrite(PROXY_USERNAME)

@@ -2,7 +2,9 @@ import random
 import time
 from selenium import webdriver
 import pyautogui
+from selenium.webdriver import FirefoxProfile
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.firefox.options import Options
 
 import ReadCookie
 import RequestsHandler
@@ -97,63 +99,58 @@ def run():
         #driver.quit()
         print()
 
-def run_new():
-    # 配置代理和用户信息
-    PROXY_SERVER = ["proxy.stormip.cn:1000", "us.stormip.cn:1000", "eu.stormip.cn:1000", "hk.stormip.cn:1000"]
-    PROXY_USERNAME = ["storm-shuaizhang4476",
-                      # 美国
-                      "storm-shuaizhang4476_area-US",
-                      # 欧洲
-                      "storm-shuaizhang4476_area-RU",
-                      "storm-shuaizhang4476_area-GB",
-                      "storm-shuaizhang4476_area-DE",
-                      # 亚洲
-                      "storm-shuaizhang4476_area-SG",
-                      "storm-shuaizhang4476_area-JP",
-                      "storm-shuaizhang4476_area-KR",
-                      "storm-shuaizhang4476_area-VN"]
-    PROXY_PASSWORD = "zs19974476"
+def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, device_id, created_by_task_id):
+    global events_str
 
-    random_server = random.choice(PROXY_SERVER)
-    random_username = random.choice(PROXY_USERNAME)
-
-    # Chrome 浏览器选项
-    chrome_options = Options()
+    # Firefox 浏览器选项
+    firefox_options = Options()
 
     # 设置代理
-    chrome_options.add_argument(f"--proxy-server=http://{random_server}")
+    firefox_options.set_preference("network.proxy.type", 1)  # 1表示手动设置代理
+    firefox_options.set_preference("network.proxy.http", PROXY_SERVER.split(':')[0])  # HTTP 代理地址
+    firefox_options.set_preference("network.proxy.http_port", int(PROXY_SERVER.split(':')[1]))  # HTTP 代理端口
+    firefox_options.set_preference("network.proxy.ssl", PROXY_SERVER.split(':')[0])  # SSL 代理地址
+    firefox_options.set_preference("network.proxy.ssl_port", int(PROXY_SERVER.split(':')[1]))  # SSL 代理端口
+    firefox_options.set_preference("network.proxy.ftp", PROXY_SERVER.split(':')[0])  # FTP 代理地址
+    firefox_options.set_preference("network.proxy.ftp_port", int(PROXY_SERVER.split(':')[1]))  # FTP 代理端口
+    firefox_options.set_preference("network.proxy.socks", PROXY_SERVER.split(':')[0])  # SOCKS 代理地址
+    firefox_options.set_preference("network.proxy.socks_port", int(PROXY_SERVER.split(':')[1]))  # SOCKS 代理端口
+    firefox_options.set_preference("network.proxy.share_proxy_settings", True)
+    firefox_options.set_preference("javascript.enabled", True)  # 启用 JavaScript
 
-    # 初始化 EdgeDriver
-    driver = webdriver.Chrome(options=chrome_options)
+    # 初始化 Firefox 浏览器
+    driver = webdriver.Firefox(options=firefox_options)
 
     try:
-        # 打开目标网址
-        driver.get("https://chat.sending.me/abc.html")
-        time.sleep(5)
+        time.sleep(3)
+
+        driver.switch_to.window(driver.current_window_handle)
+        pyautogui.moveTo(100, 100)
 
         # 输入用户名和密码（使用 pyautogui 模拟输入）
-        pyautogui.typewrite(random_username)
+        pyautogui.typewrite(PROXY_USERNAME)
         time.sleep(0.5)
         pyautogui.press("tab")
         time.sleep(0.5)
         pyautogui.typewrite(PROXY_PASSWORD)
         time.sleep(0.5)
         pyautogui.press("enter")
-        time.sleep(5)
+
+        time.sleep(0.5)
+
+        # 打开目标网址
+        driver.get("https://chat.sending.me/abc.html")
+        time.sleep(2)
 
         # 清除用户数据
         driver.delete_cookie("_ga")
         driver.delete_cookie("_ga_822RN0ZE72")
 
-        #设置新用户行为
-        events = ['register', 'register_success', 'login', 'login_success', 'set_user_name',
-                  'set_user_name_success', 'sync_start', 'sync_completed', 'room_join', 'room_join_success',
-                  'send_message']
-
+        # 设置用户行为
         events_str = ','.join(events)
         cookies = [{
             'name': "custom_incremented_d8e6cfd10abd4f3abadd4fd2d1b664e2",
-            'value': events_str,
+            'value': events_str
         }]
 
         for cookie in cookies:
@@ -164,27 +161,27 @@ def run_new():
 
         time.sleep(5)
 
-        # 循环访问页面
-        i = 1
-        while i < 2:
-            # 清除用户数据
+        for target_url in target_urls:
+            time.sleep(random.randint(6, 10))
 
-            # 访问目标URL
-            url = f"https://chat.sending.me/#/home"
-            driver.get(url)
-            print(f"访问 {url}")
+            # 循环访问页面
+            i = 1
 
-            time.sleep(7)
+            while i < 2:
+                # 访问目标URL
+                driver.get(target_url)
+                print(target_url)
 
-            cookies = driver.get_cookies()
-            print(cookies)  # 打印所有当前的Cookies
+                i += 1
 
-            cookie_string = ";".join([f"{cookie['name']}:{cookie['value']}" for cookie in cookies if
-                                      cookie['name'] in ['_ga', '_ga_822RN0ZE72']])
+        time.sleep(5)
+        cookies = driver.get_cookies()
+        print(cookies)  # 打印所有当前的Cookies
 
-            RequestsHandler.handle_fb_user(1, cookie_string, 300)
-
-            i += 1
+        cookie_string = ";".join([f"{cookie['name']}:{cookie['value']}" for cookie in cookies if
+                                  cookie['name'] in ['_ga', '_ga_822RN0ZE72']])
+        if cookie_string != "":
+            RequestsHandler.handle_fb_user(device_id, cookie_string, created_by_task_id)
 
     except Exception as e:
         print(f"出错: {e}")
@@ -193,4 +190,5 @@ def run_new():
         # 关闭浏览器
         driver.quit()
 
-run_new()
+while(True):
+    run_new("proxy.stormip.cn:1000", "storm-shuaizhang4476", "zs19974476", [], [], 1, 1)

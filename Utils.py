@@ -6,4 +6,7 @@ def test():
     for id in range(1, 4):
         print(id)
 
+def active_firefox_window():
+    print()
+
 #test()
