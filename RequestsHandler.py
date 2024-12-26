@@ -24,7 +24,6 @@ requests_log = logging.getLogger("requests.packages.urllib3")
 requests_log.setLevel(logging.DEBUG)
 requests_log.addHandler(http_handler)
 
-
 def handle_task(device_id):
     # 设置请求的 URL 和参数
     url = 'https://luckycoin.im/growth-api/task'
@@ -114,4 +113,4 @@ def get_deviceid(system):
 
 
 # handle_fb_user(1, "_ga:GA1.1.1318980546.1734180344;_ga_HNRD6KMSBG:GS1.1.1734180344.1.0.1734180350.0.0.0", 1)
-get_deviceid("Safari")
+#get_deviceid("Safari")
