@@ -5,6 +5,8 @@ import pyautogui
 from selenium.webdriver.firefox.options import Options
 
 import RequestsHandler
+import Utils
+
 
 def run():
     # 配置代理和用户信息
@@ -98,6 +100,8 @@ def run():
 def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, device_id, created_by_task_id):
     global events_str
 
+    Utils.update_username('C:\\Users\\wingzhang\\Desktop\\proxy_dialog_handler\\firefox-username.txt', PROXY_USERNAME)
+
     # Firefox 浏览器选项
     firefox_options = Options()
 
@@ -120,8 +124,8 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
     try:
         time.sleep(3)
 
-        #driver.switch_to.window(driver.current_window_handle)
-        #pyautogui.moveTo(100, 100)
+        driver.switch_to.window(driver.current_window_handle)
+        pyautogui.moveTo(100, 100)
 
         # 输入用户名和密码（使用 pyautogui 模拟输入）
         #pyautogui.typewrite(PROXY_USERNAME)
@@ -186,5 +190,5 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
         # 关闭浏览器
         driver.quit()
 
-while(True):
-    run_new("proxy.stormip.cn:1000", "storm-shuaizhang4476", "zs19974476", [], [], 1, 1)
+#while(True):
+#    run_new("proxy.stormip.cn:1000", "storm-shuaizhang4476sdfsdf", "zs19974476", [], [], 1, 1)
