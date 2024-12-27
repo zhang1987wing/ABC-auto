@@ -10,7 +10,7 @@ import RequestsHandler
 import Utils
 import WebProxy
 
-isMacOs = sys.platform = "darwin"
+isMacOs = sys.platform == "darwin"
 
 def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users, target_urls, events):
     if not isMacOs:
@@ -117,4 +117,4 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
         # 关闭浏览器
         driver.quit()
 
-#run_new("proxy.stormip.cn:1000", "storm-shuaizhang4476", "zs19974476", [], [], 1, 1)
+run_new("proxy.stormip.cn:1000", "storm-shuaizhang4476", "zs19974476", [], [], 1, 1)
