@@ -1,12 +1,7 @@
-import random
 import time
 from selenium import webdriver
-import subprocess
 
-import RequestsHandler
-import Utils
 import WebProxy
-
 
 def run_existing(existing_fb_users, target_urls, events):
 
@@ -27,6 +22,7 @@ def run_existing(existing_fb_users, target_urls, events):
 
     except Exception as e:
         print(f"出错: {e}")
+        raise
 
     finally:
         # 关闭浏览器
@@ -51,6 +47,7 @@ def run_new(target_urls, events, device_id, created_by_task_id):
 
     except Exception as e:
         print(f"出错: {e}")
+        raise
 
     finally:
         # 关闭浏览器

@@ -1,12 +1,9 @@
-import random
 import sys
 import time
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 import pyautogui
 
-import ReadCookie
-import RequestsHandler
 import Utils
 import WebProxy
 
@@ -59,6 +56,7 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
 
     except Exception as e:
         print(f"出错: {e}")
+        raise
 
     finally:
         # 关闭浏览器
@@ -112,6 +110,7 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
 
     except Exception as e:
         print(f"出错: {e}")
+        raise
 
     finally:
         # 关闭浏览器

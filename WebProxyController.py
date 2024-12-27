@@ -1,5 +1,3 @@
-import random
-
 import ChromeProxy
 import EdgeProxy
 import FirefoxProxy
