@@ -10,10 +10,11 @@ import RequestsHandler
 import Utils
 import WebProxy
 
+isMacOs = sys.platform = "darwin"
 
 def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users, target_urls, events):
-    # Firefox 浏览器选项
-    Utils.update_username('C:\\Users\\wingzhang\\Desktop\\proxy_dialog_handler\\firefox-username.txt', PROXY_USERNAME)
+    if not isMacOs:
+        Utils.update_username('C:\\Users\\wingzhang\\Desktop\\proxy_dialog_handler\\firefox-username.txt', PROXY_USERNAME)
 
     firefox_options = Options()
 
@@ -64,8 +65,6 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
         driver.quit()
 
 def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, device_id, created_by_task_id):
-    isMacOs = sys.platform = "darwin"
-
     if not isMacOs:
         Utils.update_username('C:\\Users\\wingzhang\\Desktop\\proxy_dialog_handler\\firefox-username.txt', PROXY_USERNAME)
 
