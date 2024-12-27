@@ -1,4 +1,5 @@
 import random
+import sys
 import time
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
@@ -12,8 +13,6 @@ import WebProxy
 
 def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users, target_urls, events):
     # Firefox 浏览器选项
-    global events_str
-
     Utils.update_username('C:\\Users\\wingzhang\\Desktop\\proxy_dialog_handler\\firefox-username.txt', PROXY_USERNAME)
 
     firefox_options = Options()
@@ -39,17 +38,17 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
 
         driver.switch_to.window(driver.current_window_handle)
         pyautogui.moveTo(100, 100)
-        '''
-        # 输入用户名和密码（使用 pyautogui 模拟输入）
-        pyautogui.typewrite(PROXY_USERNAME)
-        time.sleep(0.5)
-        pyautogui.press("tab")
-        time.sleep(0.5)
-        pyautogui.typewrite(PROXY_PASSWORD)
-        time.sleep(0.5)
-        pyautogui.press("enter")
-        time.sleep(0.5)
-        '''
+
+        if sys.platform == "darwin":
+            # 输入用户名和密码（使用 pyautogui 模拟输入）
+            pyautogui.typewrite(PROXY_USERNAME)
+            time.sleep(0.5)
+            pyautogui.press("tab")
+            time.sleep(0.5)
+            pyautogui.typewrite(PROXY_PASSWORD)
+            time.sleep(0.5)
+            pyautogui.press("enter")
+            time.sleep(0.5)
 
         # 打开目标网址
         driver.get("https://chat.sending.me/abc.html")
@@ -65,8 +64,10 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
         driver.quit()
 
 def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, device_id, created_by_task_id):
+    isMacOs = sys.platform = "darwin"
 
-    Utils.update_username('C:\\Users\\wingzhang\\Desktop\\proxy_dialog_handler\\firefox-username.txt', PROXY_USERNAME)
+    if not isMacOs:
+        Utils.update_username('C:\\Users\\wingzhang\\Desktop\\proxy_dialog_handler\\firefox-username.txt', PROXY_USERNAME)
 
     # Firefox 浏览器选项
     firefox_options = Options()
@@ -92,17 +93,17 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
 
         driver.switch_to.window(driver.current_window_handle)
         pyautogui.moveTo(100, 100)
-        '''
-        # 输入用户名和密码（使用 pyautogui 模拟输入）
-        pyautogui.typewrite(PROXY_USERNAME)
-        time.sleep(0.5)
-        pyautogui.press("tab")
-        time.sleep(0.5)
-        pyautogui.typewrite(PROXY_PASSWORD)
-        time.sleep(0.5)
-        pyautogui.press("enter")
-        time.sleep(0.5)
-        '''
+
+        if isMacOs:
+            # 输入用户名和密码（使用 pyautogui 模拟输入）
+            pyautogui.typewrite(PROXY_USERNAME)
+            time.sleep(0.5)
+            pyautogui.press("tab")
+            time.sleep(0.5)
+            pyautogui.typewrite(PROXY_PASSWORD)
+            time.sleep(0.5)
+            pyautogui.press("enter")
+            time.sleep(0.5)
 
         # 打开目标网址
         driver.get("https://chat.sending.me/abc.html")

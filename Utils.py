@@ -1,3 +1,6 @@
+import os
+
+
 def handle_target_url(target_urls):
     return target_urls.split(',')
 
@@ -9,7 +12,7 @@ def active_firefox_window():
     print()
 
 def update_username(file_path, username):
-    try:
+    if os.path.isfile(file_path):
         # 打开文件进行读取
         with open(file_path, 'r') as file:
             # 读取所有行
@@ -20,7 +23,6 @@ def update_username(file_path, username):
         # 打开文件进行写入并保存
         with open(file_path, 'w') as file:
             file.writelines(lines)
-    except Exception as e:
-        print(f"出错: {e}")
-
+    else:
+        print("文件不存在或是一个目录")
 #update_erorr_logs()

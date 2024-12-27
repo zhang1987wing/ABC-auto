@@ -123,7 +123,7 @@ def run(device):
 # run(2)
 # MacOS/Safari/Windows，如果是Safari，固定是9
 
-device_list = RequestsHandler.get_deviceid("Windows")
+device_list = RequestsHandler.get_deviceid("MacOS")
 while True:
     for device in device_list:
         result = run(device)
