@@ -23,7 +23,7 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
         driver.get("https://chat.sending.me/abc.html")
         time.sleep(2)
 
-        pyautogui.moveTo(100, 100)
+        pyautogui.FAILSAFE = False
 
         # 输入用户名和密码（使用 pyautogui 模拟输入）
         pyautogui.typewrite(PROXY_USERNAME)
@@ -45,13 +45,17 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
         # 关闭浏览器
         driver.quit()
 
-def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, device_id, created_by_task_id):
+def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, device_id, created_by_task_id, isHeadless):
 
     # Chrome 浏览器选项
     chrome_options = Options()
 
-    # 设置代理
-    chrome_options.add_argument(f"--proxy-server=http://{PROXY_SERVER}")
+    if isHeadless:
+        chrome_options.add_argument("--headless")
+        chrome_options.add_argument("--disable-gpu")
+    else:
+        # 设置代理
+        chrome_options.add_argument(f"--proxy-server=http://{PROXY_SERVER}")
 
     # 初始化 ChromeDriver
     driver = webdriver.Chrome(options=chrome_options)
@@ -61,17 +65,18 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
         driver.get("https://chat.sending.me/abc.html")
         time.sleep(2)
 
-        pyautogui.moveTo(100, 100)
+        if not isHeadless:
+            pyautogui.FAILSAFE = False
 
-        # 输入用户名和密码（使用 pyautogui 模拟输入）
-        pyautogui.typewrite(PROXY_USERNAME)
-        time.sleep(0.5)
-        pyautogui.press("tab")
-        time.sleep(0.5)
-        pyautogui.typewrite(PROXY_PASSWORD)
-        time.sleep(0.5)
-        pyautogui.press("enter")
-        time.sleep(2)
+            # 输入用户名和密码（使用 pyautogui 模拟输入）
+            pyautogui.typewrite(PROXY_USERNAME)
+            time.sleep(0.5)
+            pyautogui.press("tab")
+            time.sleep(0.5)
+            pyautogui.typewrite(PROXY_PASSWORD)
+            time.sleep(0.5)
+            pyautogui.press("enter")
+            time.sleep(2)
 
         WebProxy.handle_newuser(driver, target_urls, events, device_id, created_by_task_id)
 
@@ -83,4 +88,4 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
         # 关闭浏览器
         driver.quit()
 
-#run_new("proxy.stormip.cn:1000", "storm-shuaizhang4476", "zs19974476", [], [], 1, 1)
+#run_new("proxy.stormip.cn:1000", "storm-shuaizhang4476", "zs19974476", [], [], 1, 1, False)

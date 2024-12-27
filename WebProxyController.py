@@ -85,7 +85,7 @@ def run(device):
             for i in range(new_count):
                 if device["platform"] == "Chrome":
                     ChromeProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls,
-                                        new_users_events, device_id, created_by_task_id)
+                                        new_users_events, device_id, created_by_task_id, False)
                 elif device["platform"] == "Firefox":
                     FirefoxProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls,
                                          new_users_events, device_id, created_by_task_id)
@@ -96,7 +96,7 @@ def run(device):
                     SafariProxy.run_new(new_users_target_urls, new_users_events, device_id, created_by_task_id)
                 else:
                     ChromeProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls,
-                                        new_users_events, device_id, created_by_task_id)
+                                        new_users_events, device_id, created_by_task_id, False)
 
         if existing_user_count > 0:
             for i in range(existing_user_count):

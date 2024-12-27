@@ -35,7 +35,7 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
         time.sleep(5)
 
         driver.switch_to.window(driver.current_window_handle)
-        pyautogui.moveTo(100, 100)
+        pyautogui.FAILSAFE = False
 
         if sys.platform == "darwin":
             # 输入用户名和密码（使用 pyautogui 模拟输入）
@@ -64,7 +64,7 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
 
 def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, device_id, created_by_task_id):
     if not isMacOs:
-        Utils.update_username('C:\\Users\\wingzhang\\Desktop\\proxy_dialog_handler\\firefox-username.txt', PROXY_USERNAME)
+        Utils.update_username('C:\\Users\\qmk\\Desktop\\proxy_dialog_handler\\firefox-username.txt', PROXY_USERNAME)
 
     # Firefox 浏览器选项
     firefox_options = Options()
@@ -89,7 +89,7 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
         time.sleep(3)
 
         driver.switch_to.window(driver.current_window_handle)
-        pyautogui.moveTo(100, 100)
+        pyautogui.FAILSAFE = False
 
         if isMacOs:
             # 输入用户名和密码（使用 pyautogui 模拟输入）
