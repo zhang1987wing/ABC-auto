@@ -118,7 +118,7 @@ def run(device):
                     ChromeProxy.run_existing(proxy_server, proxy_username, proxy_password, existing_fb_users,
                                              existing_users_target_urls, existing_users_events)
     except Exception as e:
-        logging.error(f"{device["platform"]} - {proxy_server} - {proxy_username} - {proxy_password} - An error occurred", exc_info=True)
+        logging.error(f"{device['platform']} - {proxy_server} - {proxy_username} - {proxy_password} - An error occurred", exc_info=True)
 
 # run(2)
 # MacOS/Safari/Windows，如果是Safari，固定是9
