@@ -23,13 +23,4 @@ def update_username(file_path, username):
     except Exception as e:
         print(f"出错: {e}")
 
-def update_erorr_logs():
-    # 测试代码
-    try:
-        # 故意引发除零错误
-        result = 10 / 0
-    except Exception as e:
-        # 捕获到错误后，记录错误信息
-        logging.error(f"An error occurred: {e}")
-
-update_erorr_logs()
+#update_erorr_logs()
