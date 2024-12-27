@@ -1,8 +1,8 @@
 import random
 import time
 from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
 import pyautogui
+from selenium.webdriver.edge.options import Options
 
 import ReadCookie
 import RequestsHandler
@@ -85,3 +85,5 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
     finally:
         # 关闭浏览器
         driver.quit()
+
+#run_new("proxy.stormip.cn:1000", "storm-shuaizhang4476", "zs19974476", [], [], 1, 1)
