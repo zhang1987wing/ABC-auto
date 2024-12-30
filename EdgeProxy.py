@@ -24,17 +24,18 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
         driver.get("https://chat.sending.me/abc.html")
         time.sleep(2)
 
-        pyautogui.FAILSAFE = False
+        if need_proxy:
+            pyautogui.FAILSAFE = False
 
-        # 输入用户名和密码（使用 pyautogui 模拟输入）
-        pyautogui.typewrite(PROXY_USERNAME)
-        time.sleep(0.5)
-        pyautogui.press("tab")
-        time.sleep(0.5)
-        pyautogui.typewrite(PROXY_PASSWORD)
-        time.sleep(0.5)
-        pyautogui.press("enter")
-        time.sleep(0.5)
+            # 输入用户名和密码（使用 pyautogui 模拟输入）
+            pyautogui.typewrite(PROXY_USERNAME)
+            time.sleep(0.5)
+            pyautogui.press("tab")
+            time.sleep(0.5)
+            pyautogui.typewrite(PROXY_PASSWORD)
+            time.sleep(0.5)
+            pyautogui.press("enter")
+            time.sleep(0.5)
 
         WebProxy.handle_existing(driver, existing_fb_users, target_urls, events)
 
@@ -64,17 +65,18 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
         driver.get("https://chat.sending.me/abc.html")
         time.sleep(2)
 
-        pyautogui.FAILSAFE = False
+        if need_proxy:
+            pyautogui.FAILSAFE = False
 
-        # 输入用户名和密码（使用 pyautogui 模拟输入）
-        pyautogui.typewrite(PROXY_USERNAME)
-        time.sleep(0.5)
-        pyautogui.press("tab")
-        time.sleep(0.5)
-        pyautogui.typewrite(PROXY_PASSWORD)
-        time.sleep(0.5)
-        pyautogui.press("enter")
-        time.sleep(2)
+            # 输入用户名和密码（使用 pyautogui 模拟输入）
+            pyautogui.typewrite(PROXY_USERNAME)
+            time.sleep(0.5)
+            pyautogui.press("tab")
+            time.sleep(0.5)
+            pyautogui.typewrite(PROXY_PASSWORD)
+            time.sleep(0.5)
+            pyautogui.press("enter")
+            time.sleep(2)
 
         WebProxy.handle_newuser(driver, target_urls, events, device_id, created_by_task_id)
 

@@ -38,7 +38,7 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
         driver.switch_to.window(driver.current_window_handle)
         pyautogui.FAILSAFE = False
 
-        if sys.platform == "darwin":
+        if isMacOs and need_proxy:
             # 输入用户名和密码（使用 pyautogui 模拟输入）
             pyautogui.typewrite(PROXY_USERNAME)
             time.sleep(0.5)
@@ -93,7 +93,7 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
         driver.switch_to.window(driver.current_window_handle)
         pyautogui.FAILSAFE = False
 
-        if isMacOs:
+        if isMacOs and need_proxy:
             # 输入用户名和密码（使用 pyautogui 模拟输入）
             pyautogui.typewrite(PROXY_USERNAME)
             time.sleep(0.5)
