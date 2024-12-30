@@ -90,4 +90,4 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
         # 关闭浏览器
         driver.quit()
 
-#run_new("hk.stormip.cn:1000", "storm-shuaizhang4476_area-TW", "zs19974476", [], [], 1, 1, False)
+#run_new("eu.stormip.cn:1000", "storm-shuaizhang4476_area-TW", "zs19974476", [], [], 1, 1, False, True)

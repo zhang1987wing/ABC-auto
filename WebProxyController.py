@@ -80,41 +80,42 @@ def run(device):
         created_by_task_id = response_json["id"]
 
         # random_server = random.choice(proxy_server)
+        need_proxy = False
 
         if new_count > 0:
             for i in range(new_count):
                 if device["platform"] == "Chrome":
                     ChromeProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls,
-                                        new_users_events, device_id, created_by_task_id, False, True)
+                                        new_users_events, device_id, created_by_task_id, False, need_proxy)
                 elif device["platform"] == "Firefox":
                     FirefoxProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls,
-                                         new_users_events, device_id, created_by_task_id, True)
+                                         new_users_events, device_id, created_by_task_id, need_proxy)
                 elif device["platform"] == "Edge":
                     EdgeProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls, new_users_events,
-                                      device_id, created_by_task_id, True)
+                                      device_id, created_by_task_id, need_proxy)
                 elif device["platform"] == "Safari":
                     SafariProxy.run_new(new_users_target_urls, new_users_events, device_id, created_by_task_id)
                 else:
                     ChromeProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls,
-                                        new_users_events, device_id, created_by_task_id, False, True)
+                                        new_users_events, device_id, created_by_task_id, False, need_proxy)
 
         if existing_user_count > 0:
             for i in range(existing_user_count):
                 if device["platform"] == "Chrome":
                     ChromeProxy.run_existing(proxy_server, proxy_username, proxy_password, existing_fb_users,
-                                             existing_users_target_urls, existing_users_events, True)
+                                             existing_users_target_urls, existing_users_events, need_proxy)
                 elif device["platform"] == "Firefox":
                     FirefoxProxy.run_new(proxy_server, proxy_username, proxy_password, existing_users_target_urls,
                                          existing_users_events,
-                                         device_id, created_by_task_id, True)
+                                         device_id, created_by_task_id, need_proxy)
                 elif device["platform"] == "Edge":
                     EdgeProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls, new_users_events,
-                                      device_id, created_by_task_id, True)
+                                      device_id, created_by_task_id, need_proxy)
                 elif device["platform"] == "Safari":
                     SafariProxy.run_new(existing_users_target_urls, existing_users_events, device_id, created_by_task_id)
                 else:
                     ChromeProxy.run_existing(proxy_server, proxy_username, proxy_password, existing_fb_users,
-                                             existing_users_target_urls, existing_users_events, True)
+                                             existing_users_target_urls, existing_users_events, need_proxy)
     except Exception as e:
         logging.error(f"{device['platform']} - {proxy_server} - {proxy_username} - {proxy_password} - An error occurred", exc_info=True)
 
