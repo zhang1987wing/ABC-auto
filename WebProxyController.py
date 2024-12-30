@@ -80,7 +80,7 @@ def run(device):
         created_by_task_id = response_json["id"]
 
         # random_server = random.choice(proxy_server)
-        need_proxy = False
+        need_proxy = True
 
         if new_count > 0:
             for i in range(new_count):
