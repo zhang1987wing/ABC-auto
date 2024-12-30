@@ -9,24 +9,25 @@ import WebProxy
 
 isMacOs = sys.platform == "darwin"
 
-def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users, target_urls, events):
+def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users, target_urls, events, need_proxy):
     if not isMacOs:
         Utils.update_username('C:\\Users\\wingzhang\\Desktop\\proxy_dialog_handler\\firefox-username.txt', PROXY_USERNAME)
 
     firefox_options = Options()
 
-    # 设置代理
-    firefox_options.set_preference("network.proxy.type", 1)  # 1表示手动设置代理
-    firefox_options.set_preference("network.proxy.http", PROXY_SERVER.split(':')[0])  # HTTP 代理地址
-    firefox_options.set_preference("network.proxy.http_port", int(PROXY_SERVER.split(':')[1]))  # HTTP 代理端口
-    firefox_options.set_preference("network.proxy.ssl", PROXY_SERVER.split(':')[0])  # SSL 代理地址
-    firefox_options.set_preference("network.proxy.ssl_port", int(PROXY_SERVER.split(':')[1]))  # SSL 代理端口
-    firefox_options.set_preference("network.proxy.ftp", PROXY_SERVER.split(':')[0])  # FTP 代理地址
-    firefox_options.set_preference("network.proxy.ftp_port", int(PROXY_SERVER.split(':')[1]))  # FTP 代理端口
-    firefox_options.set_preference("network.proxy.socks", PROXY_SERVER.split(':')[0])  # SOCKS 代理地址
-    firefox_options.set_preference("network.proxy.socks_port", int(PROXY_SERVER.split(':')[1]))  # SOCKS 代理端口
-    firefox_options.set_preference("network.proxy.share_proxy_settings", True)
-    firefox_options.set_preference("javascript.enabled", True)  # 启用 JavaScript
+    if need_proxy:
+        # 设置代理
+        firefox_options.set_preference("network.proxy.type", 1)  # 1表示手动设置代理
+        firefox_options.set_preference("network.proxy.http", PROXY_SERVER.split(':')[0])  # HTTP 代理地址
+        firefox_options.set_preference("network.proxy.http_port", int(PROXY_SERVER.split(':')[1]))  # HTTP 代理端口
+        firefox_options.set_preference("network.proxy.ssl", PROXY_SERVER.split(':')[0])  # SSL 代理地址
+        firefox_options.set_preference("network.proxy.ssl_port", int(PROXY_SERVER.split(':')[1]))  # SSL 代理端口
+        firefox_options.set_preference("network.proxy.ftp", PROXY_SERVER.split(':')[0])  # FTP 代理地址
+        firefox_options.set_preference("network.proxy.ftp_port", int(PROXY_SERVER.split(':')[1]))  # FTP 代理端口
+        firefox_options.set_preference("network.proxy.socks", PROXY_SERVER.split(':')[0])  # SOCKS 代理地址
+        firefox_options.set_preference("network.proxy.socks_port", int(PROXY_SERVER.split(':')[1]))  # SOCKS 代理端口
+        firefox_options.set_preference("network.proxy.share_proxy_settings", True)
+        firefox_options.set_preference("javascript.enabled", True)  # 启用 JavaScript
 
     # 初始化 Firefox 浏览器
     driver = webdriver.Firefox(options=firefox_options)
@@ -62,25 +63,26 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
         # 关闭浏览器
         driver.quit()
 
-def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, device_id, created_by_task_id):
+def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, device_id, created_by_task_id, need_proxy):
     if not isMacOs:
         Utils.update_username('C:\\Users\\qmk\\Desktop\\proxy_dialog_handler\\firefox-username.txt', PROXY_USERNAME)
 
     # Firefox 浏览器选项
     firefox_options = Options()
 
-    # 设置代理
-    firefox_options.set_preference("network.proxy.type", 1)  # 1表示手动设置代理
-    firefox_options.set_preference("network.proxy.http", PROXY_SERVER.split(':')[0])  # HTTP 代理地址
-    firefox_options.set_preference("network.proxy.http_port", int(PROXY_SERVER.split(':')[1]))  # HTTP 代理端口
-    firefox_options.set_preference("network.proxy.ssl", PROXY_SERVER.split(':')[0])  # SSL 代理地址
-    firefox_options.set_preference("network.proxy.ssl_port", int(PROXY_SERVER.split(':')[1]))  # SSL 代理端口
-    firefox_options.set_preference("network.proxy.ftp", PROXY_SERVER.split(':')[0])  # FTP 代理地址
-    firefox_options.set_preference("network.proxy.ftp_port", int(PROXY_SERVER.split(':')[1]))  # FTP 代理端口
-    firefox_options.set_preference("network.proxy.socks", PROXY_SERVER.split(':')[0])  # SOCKS 代理地址
-    firefox_options.set_preference("network.proxy.socks_port", int(PROXY_SERVER.split(':')[1]))  # SOCKS 代理端口
-    firefox_options.set_preference("network.proxy.share_proxy_settings", True)
-    firefox_options.set_preference("javascript.enabled", True)  # 启用 JavaScript
+    if need_proxy:
+        # 设置代理
+        firefox_options.set_preference("network.proxy.type", 1)  # 1表示手动设置代理
+        firefox_options.set_preference("network.proxy.http", PROXY_SERVER.split(':')[0])  # HTTP 代理地址
+        firefox_options.set_preference("network.proxy.http_port", int(PROXY_SERVER.split(':')[1]))  # HTTP 代理端口
+        firefox_options.set_preference("network.proxy.ssl", PROXY_SERVER.split(':')[0])  # SSL 代理地址
+        firefox_options.set_preference("network.proxy.ssl_port", int(PROXY_SERVER.split(':')[1]))  # SSL 代理端口
+        firefox_options.set_preference("network.proxy.ftp", PROXY_SERVER.split(':')[0])  # FTP 代理地址
+        firefox_options.set_preference("network.proxy.ftp_port", int(PROXY_SERVER.split(':')[1]))  # FTP 代理端口
+        firefox_options.set_preference("network.proxy.socks", PROXY_SERVER.split(':')[0])  # SOCKS 代理地址
+        firefox_options.set_preference("network.proxy.socks_port", int(PROXY_SERVER.split(':')[1]))  # SOCKS 代理端口
+        firefox_options.set_preference("network.proxy.share_proxy_settings", True)
+        firefox_options.set_preference("javascript.enabled", True)  # 启用 JavaScript
 
     # 初始化 Firefox 浏览器
     driver = webdriver.Firefox(options=firefox_options)

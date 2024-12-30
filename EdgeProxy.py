@@ -6,14 +6,15 @@ from selenium.webdriver.edge.options import Options
 import WebProxy
 
 
-def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users, target_urls, events):
+def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users, target_urls, events, need_proxy):
     global events_str
 
     # Edge 浏览器选项
     edge_options = Options()
 
-    # 设置代理
-    edge_options.add_argument(f"--proxy-server=http://{PROXY_SERVER}")
+    if need_proxy:
+        # 设置代理
+        edge_options.add_argument(f"--proxy-server=http://{PROXY_SERVER}")
 
     # 初始化 Edge 浏览器
     driver = webdriver.Edge(options=edge_options)
@@ -45,14 +46,15 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
         # 关闭浏览器
         driver.quit()
 
-def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, device_id, created_by_task_id):
+def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, device_id, created_by_task_id, need_proxy):
     global events_str
 
     # Edge 浏览器选项
     edge_options = Options()
 
-    # 设置代理
-    edge_options.add_argument(f"--proxy-server=http://{PROXY_SERVER}")
+    if need_proxy:
+        # 设置代理
+        edge_options.add_argument(f"--proxy-server=http://{PROXY_SERVER}")
 
     # 初始化 Edge 浏览器
     driver = webdriver.Edge(options=edge_options)
