@@ -47,7 +47,7 @@ def handle_newuser(driver, target_urls, events, device_id, created_by_task_id):
     cookie_string = ";".join([f"{cookie['name']}:{cookie['value']}" for cookie in cookies if
                               cookie['name'] in ['_ga', '_ga_822RN0ZE72']])
     if cookie_string != "":
-        time.sleep(60)
+        time.sleep(30)
         RequestsHandler.handle_fb_user(device_id, cookie_string, created_by_task_id)
 
 def handle_existing(driver, existing_fb_users, target_urls, events):
@@ -90,7 +90,7 @@ def handle_existing(driver, existing_fb_users, target_urls, events):
                 print(target_url)
 
                 i += 1
-        time.sleep(60)
+        time.sleep(30)
 
 def run():
     # 配置代理和用户信息
