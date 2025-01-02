@@ -4,7 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 # 设置文件大小限制 (例如: 5 MB)
-MAX_LOG_SIZE = 1 * 1024 * 1024  # 5 MB
+MAX_LOG_SIZE = 10 * 1024 * 1024  # 5 MB
 LOG_DIR = "logs"  # 存放日志文件的目录
 
 # 确保日志目录存在
