@@ -1,5 +1,5 @@
+import logging
 import os
-
 
 def handle_target_url(target_urls):
     return target_urls.split(',')
@@ -25,4 +25,3 @@ def update_username(file_path, username):
             file.writelines(lines)
     else:
         print("文件不存在或是一个目录")
-#update_erorr_logs()
