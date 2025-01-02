@@ -34,7 +34,7 @@ def handle_task(device_id):
     }
 
     # 发送 POST 请求
-    response = requests.post(url, json=data, timeout=30)
+    response = requests.post(url, json=data, timeout=60)
 
     '''
     response = json.loads("{'id': 409, 'proxy': {'region': 'global', 'proxy_address': 'proxy.stormip.cn', 'proxy_port': 1000, 'proxy_username': 'storm-shuaizhang4476', "
@@ -62,7 +62,7 @@ def handle_fb_user(device_id, cookie, created_by_task_id):
     }
 
     # 发送 POST 请求
-    response = requests.post(url, json=data, timeout=30)
+    response = requests.post(url, json=data, timeout=60)
     print(response.request.body)
 
     # 处理响应
