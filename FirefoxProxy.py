@@ -161,11 +161,14 @@ if __name__ == "__main__":
 
     if __name__ == "__main__":
 
+        device_id = 0
+
         if len(sys.argv) > 1:
-            print("Command-line arguments:", sys.argv[1:])
+            device_id = sys.argv[1:][0]
+            print("Command-line arguments:", device_id)
 
             while True:
-                result = controller(sys.argv[1:], False)
+                result = controller(device_id, False)
 
                 if result == 'skip':
                     continue
