@@ -4,14 +4,17 @@ from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 import pyautogui
 
+import RequestsHandler
 import Utils
 import WebProxy
 
 isMacOs = sys.platform == "darwin"
 
+
 def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users, target_urls, events, need_proxy):
     if not isMacOs:
-        Utils.update_username('C:\\Users\\wingzhang\\Desktop\\proxy_dialog_handler\\firefox-username.txt', PROXY_USERNAME)
+        Utils.update_username('C:\\Users\\wingzhang\\Desktop\\proxy_dialog_handler\\firefox-username.txt',
+                              PROXY_USERNAME)
 
     firefox_options = Options()
 
@@ -63,7 +66,9 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
         # 关闭浏览器
         driver.quit()
 
-def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, device_id, created_by_task_id, need_proxy):
+
+def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, device_id, created_by_task_id,
+            need_proxy):
     if not isMacOs:
         Utils.update_username('C:\\Users\\qmk\\Desktop\\proxy_dialog_handler\\firefox-username.txt', PROXY_USERNAME)
 
@@ -118,4 +123,53 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
         # 关闭浏览器
         driver.quit()
 
-#run_new("proxy.stormip.cn:1000", "storm-shuaizhang4476", "zs19974476", [], [], 1, 1)
+
+if __name__ == "__main__":
+    def controller(device_id, need_proxy):
+        response = RequestsHandler.handle_task(device_id)
+
+        if response.status_code not in (200, 201):
+            return "skip"
+
+        response_json = response.json()
+        print(response_json)
+
+        proxy_server = response_json["proxy"]["proxy_address"] + ":" + str(response_json["proxy"]["proxy_port"])
+        proxy_username = response_json["proxy"]["proxy_username"]
+        proxy_password = response_json["proxy"]["proxy_password"]
+        new_count = response_json["new_user_count"]
+        existing_user_count = response_json["existing_user_count"]
+        existing_fb_users = response_json["existing_fb_users"]
+        new_users_target_urls = response_json["new_users_target_urls"]
+        existing_users_target_urls = response_json["existing_users_target_urls"]
+        new_users_events = response_json["new_users_events"]
+        existing_users_events = response_json["existing_users_events"]
+        created_by_task_id = response_json["id"]
+
+        # random_server = random.choice(proxy_server)
+
+        if new_count > 0:
+            for i in range(new_count):
+                run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls,
+                        new_users_events, device_id, created_by_task_id, need_proxy)
+
+        if existing_user_count > 0:
+            for i in range(existing_user_count):
+                run_existing(proxy_server, proxy_username, proxy_password, existing_fb_users,
+                             existing_users_target_urls, existing_users_events, need_proxy)
+
+
+    if __name__ == "__main__":
+
+        if len(sys.argv) > 1:
+            print("Command-line arguments:", sys.argv[1:])
+
+            while True:
+                result = controller(sys.argv[1:], False)
+
+                if result == 'skip':
+                    continue
+        else:
+            print("No command-line arguments provided.")
+
+    #run_new("proxy.stormip.cn:1000", "storm-shuaizhang4476", "zs19974476", [], [], 1, 1, False)

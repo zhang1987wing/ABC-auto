@@ -1,6 +1,8 @@
+import sys
 import time
 from selenium import webdriver
 
+import RequestsHandler
 import WebProxy
 
 def run_existing(existing_fb_users, target_urls, events):
@@ -52,3 +54,43 @@ def run_new(target_urls, events, device_id, created_by_task_id):
     finally:
         # 关闭浏览器
         driver.quit()
+
+def controller(device_id, need_proxy):
+    response = RequestsHandler.handle_task(device_id)
+
+    if response.status_code not in (200, 201):
+        return "skip"
+
+    response_json = response.json()
+    print(response_json)
+
+    new_count = response_json["new_user_count"]
+    existing_user_count = response_json["existing_user_count"]
+    existing_fb_users = response_json["existing_fb_users"]
+    new_users_target_urls = response_json["new_users_target_urls"]
+    existing_users_target_urls = response_json["existing_users_target_urls"]
+    new_users_events = response_json["new_users_events"]
+    existing_users_events = response_json["existing_users_events"]
+    created_by_task_id = response_json["id"]
+
+    if new_count > 0:
+        for i in range(new_count):
+            run_new(new_users_target_urls, new_users_events, device_id, created_by_task_id)
+
+    if existing_user_count > 0:
+        for i in range(existing_user_count):
+            run_existing(existing_fb_users, existing_users_target_urls, existing_users_events)
+
+
+if __name__ == "__main__":
+
+    if len(sys.argv) > 1:
+        print("Command-line arguments:", sys.argv[1:])
+
+        while True:
+            result = controller(sys.argv[1:], False)
+
+            if result == 'skip':
+                continue
+    else:
+        print("No command-line arguments provided.")

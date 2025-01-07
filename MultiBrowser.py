@@ -23,7 +23,7 @@ def browser_task(task_id):
         "room_join",
         "room_join_success",
         "send_message",
-        "send_message_success"], 10001, 10001, True, False)
+        "send_message_success"], 10001, 10001, False, False)
 
     print(f"Browser {task_id} completed by thread {threading.current_thread().name}")
 
