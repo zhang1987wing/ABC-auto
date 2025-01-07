@@ -134,7 +134,7 @@ if __name__ == "__main__":
     device_id = 0
 
     if len(sys.argv) > 1:
-        device_id = sys.argv[1:][0]
+        device_id = int(sys.argv[1:][0])
         print("Command-line arguments:", device_id)
 
         while True:
