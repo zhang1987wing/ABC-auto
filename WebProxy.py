@@ -240,4 +240,4 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
         driver.quit()
 
 #while(True):
-run()
+#run()
