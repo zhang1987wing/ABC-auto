@@ -48,6 +48,7 @@ def get_proxy_username(device_id):
 
 def run(device, log_file_path):
     device_id = device["id"]
+    platform = device["platform"]
     print(device_id)
 
     handle_new_user = 0
@@ -78,20 +79,20 @@ def run(device, log_file_path):
             # random_server = random.choice(proxy_server)
             need_proxy = True
 
-            log_file.write(f"task_id: {created_by_task_id}, new_count: {new_count}, existing_user_count: {existing_user_count}\n")
+            log_file.write(f"task_id: {created_by_task_id}, platform: {platform}, new_count: {new_count}, existing_user_count: {existing_user_count}\n")
 
             if new_count > 0:
                 for i in range(new_count):
-                    if device["platform"] == "Chrome":
+                    if platform == "Chrome":
                         ChromeProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls,
                                             new_users_events, device_id, created_by_task_id, False, need_proxy)
-                    elif device["platform"] == "Firefox":
+                    elif platform== "Firefox":
                         FirefoxProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls,
                                              new_users_events, device_id, created_by_task_id, need_proxy)
-                    elif device["platform"] == "Edge":
+                    elif platform == "Edge":
                         EdgeProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls, new_users_events,
                                           device_id, created_by_task_id, need_proxy)
-                    elif device["platform"] == "Safari":
+                    elif platform == "Safari":
                         SafariProxy.run_new(new_users_target_urls, new_users_events, device_id, created_by_task_id)
                     else:
                         ChromeProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls,
@@ -100,17 +101,17 @@ def run(device, log_file_path):
 
             if existing_user_count > 0:
                 for i in range(existing_user_count):
-                    if device["platform"] == "Chrome":
+                    if platform == "Chrome":
                         ChromeProxy.run_existing(proxy_server, proxy_username, proxy_password, existing_fb_users,
                                                  existing_users_target_urls, existing_users_events, need_proxy)
-                    elif device["platform"] == "Firefox":
+                    elif platform == "Firefox":
                         FirefoxProxy.run_new(proxy_server, proxy_username, proxy_password, existing_users_target_urls,
                                              existing_users_events,
                                              device_id, created_by_task_id, need_proxy)
-                    elif device["platform"] == "Edge":
+                    elif platform == "Edge":
                         EdgeProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls, new_users_events,
                                           device_id, created_by_task_id, need_proxy)
-                    elif device["platform"] == "Safari":
+                    elif platform == "Safari":
                         SafariProxy.run_new(existing_users_target_urls, existing_users_events, device_id, created_by_task_id)
                     else:
                         ChromeProxy.run_existing(proxy_server, proxy_username, proxy_password, existing_fb_users,
