@@ -66,11 +66,11 @@ def handle_existing(driver, existing_fb_users, target_urls, events):
         driver.delete_cookie("_ga_822RN0ZE72")
 
         cookies = [{
-            'name': existing_fb_user.split(';')[0].split(':')[0],
-            'value': existing_fb_user.split(';')[0].split(':')[1],
+            'name': existing_fb_user['data'].split(';')[0].split(':')[0],
+            'value': existing_fb_user['data'].split(';')[0].split(':')[1],
         }, {
-            'name': existing_fb_user.split(';')[1].split(':')[0],
-            'value': existing_fb_user.split(';')[1].split(':')[1],
+            'name': existing_fb_user['data'].split(';')[1].split(':')[0],
+            'value': existing_fb_user['data'].split(';')[1].split(':')[1],
         }]
         for cookie in cookies:
             driver.add_cookie(cookie)
@@ -148,17 +148,21 @@ def run():
             print(f"访问 {url}")
 
             # 设置一个Cookie
-            existing_fb_users = ['_GA:GA1.1.1318980546.1734180344;_ga_HNRD6KMSBG:GS1.1.1734180344.1']
+            existing_fb_users = [{
+            "id": 38017,
+            "data": "_ga:GA1.1.1299481105.1736182112;_ga_822RN0ZE72:GS1.1.1736182111.1.0.1736182111.0.0.0",
+            "sdn_user_id": "@sdn_25a2e8a5d448dc9b10466e4c6eeb1c3a42bb5a02:25a2e8a5d448dc9b10466e4c6eeb1c3a42bb5a02"
+        }]
             events = ['click', 'send_message']
             random_cookie = random.choice(existing_fb_users)
             events_str = ','.join(events)
 
             cookies = [{
-                'name': random_cookie.split(';')[0].split(':')[0],
-                'value': random_cookie.split(';')[0].split(':')[1],
+                'name': random_cookie['data'].split(';')[0].split(':')[0],
+                'value': random_cookie['data'].split(';')[0].split(':')[1],
             }, {
-                'name': random_cookie.split(';')[1].split(':')[0],
-                'value': random_cookie.split(';')[1].split(':')[1],
+                'name': random_cookie['data'].split(';')[1].split(':')[0],
+                'value': random_cookie['data'].split(';')[1].split(':')[1],
             }, {
                 'name': "custom_incremented_d8e6cfd10abd4f3abadd4fd2d1b664e2",
                 'value': events_str
@@ -236,4 +240,4 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
         driver.quit()
 
 #while(True):
-#    run_new("proxy.stormip.cn:1000", "storm-shuaizhang4476sdfsdf", "zs19974476", [], [], 1, 1)
+run()
