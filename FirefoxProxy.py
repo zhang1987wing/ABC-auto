@@ -158,20 +158,20 @@ def controller(device_id, need_proxy):
                          existing_users_target_urls, existing_users_events, need_proxy)
 
 
-    if __name__ == "__main__":
+if __name__ == "__main__":
 
-        device_id = 0
+    device_id = 0
 
-        if len(sys.argv) > 1:
-            device_id = int(sys.argv[1:][0])
-            print("Command-line arguments:", device_id)
+    if len(sys.argv) > 1:
+        device_id = int(sys.argv[1:][0])
+        print("Command-line arguments:", device_id)
 
-            while True:
-                result = controller(device_id, False)
+        while True:
+            result = controller(device_id, False)
 
-                if result == 'skip':
-                    continue
-        else:
-            print("No command-line arguments provided.")
+            if result == 'skip':
+                continue
+    else:
+        print("No command-line arguments provided.")
 
-    #run_new("proxy.stormip.cn:1000", "storm-shuaizhang4476", "zs19974476", [], [], 1, 1, False)
+# run_new("proxy.stormip.cn:1000", "storm-shuaizhang4476", "zs19974476", [], [], 1, 1, False)
