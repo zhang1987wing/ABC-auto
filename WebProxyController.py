@@ -50,6 +50,9 @@ def run(device, log_file_path):
     device_id = device["id"]
     print(device_id)
 
+    handle_new_user = 0
+    handle_existing_user = 0
+
     with open(log_file_path, "a") as log_file:
         try:
             response = RequestsHandler.handle_task(device_id)
@@ -75,6 +78,8 @@ def run(device, log_file_path):
             # random_server = random.choice(proxy_server)
             need_proxy = True
 
+            log_file.write(f"task_id: {created_by_task_id}, new_count: {new_count}, existing_user_count: {existing_user_count}\n")
+
             if new_count > 0:
                 for i in range(new_count):
                     if device["platform"] == "Chrome":
@@ -91,6 +96,7 @@ def run(device, log_file_path):
                     else:
                         ChromeProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls,
                                             new_users_events, device_id, created_by_task_id, False, need_proxy)
+                    handle_new_user += 1
 
             if existing_user_count > 0:
                 for i in range(existing_user_count):
@@ -109,8 +115,12 @@ def run(device, log_file_path):
                     else:
                         ChromeProxy.run_existing(proxy_server, proxy_username, proxy_password, existing_fb_users,
                                                  existing_users_target_urls, existing_users_events, need_proxy)
+                    handle_existing_user += 1
+
+            log_file.write(f"task_id: {created_by_task_id}, all done\n")
         except Exception as e:
             log_file.write(f"An error occurred: {e}\n")
+            log_file.write(f"task_id: {created_by_task_id}, handle_new_user: {handle_new_user}, handle_existing_user: {handle_existing_user}\n")
 
 # run(2)
 # MacOS/Safari/Windows，如果是Safari，固定是9
