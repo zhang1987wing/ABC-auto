@@ -28,17 +28,11 @@ def handle_newuser(driver, target_urls, events, device_id, created_by_task_id):
     time.sleep(5)
 
     for target_url in target_urls:
-        time.sleep(random.randint(3, 5))
 
-        # 循环访问页面
-        i = 1
+        time.sleep(random.randint(1, 3))
 
-        while i < 2:
-            # 访问目标URL
-            driver.get(target_url)
-            print(target_url)
-
-            i += 1
+        driver.get(target_url)
+        print(target_url)
 
     time.sleep(5)
     cookies = driver.get_cookies()
@@ -80,16 +74,11 @@ def handle_existing(driver, existing_fb_users, target_urls, events):
         print(cookies)  # 打印所有当前的Cookies
 
         for target_url in target_urls:
-            time.sleep(random.randint(3, 5))
+            time.sleep(random.randint(1, 3))
 
-            # 循环访问页面
-            i = 1
-            while i < 2:
-                # 访问目标URL
-                driver.get(target_url)
-                print(target_url)
+            driver.get(target_url)
+            print(target_url)
 
-                i += 1
         time.sleep(20)
 
 def run():
