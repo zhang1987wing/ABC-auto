@@ -60,7 +60,7 @@ def run(device, log_file_path):
         try:
             response = RequestsHandler.handle_task(device_id)
 
-            if response.status_code not in (200, 201):
+            if response.status_code not in (200, 201) or response is None:
                 return "skip"
 
             response_json = response.json()

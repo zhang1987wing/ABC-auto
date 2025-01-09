@@ -125,7 +125,9 @@ def controller(device_id, need_proxy):
 
     if existing_user_count > 0:
         for i in range(existing_user_count):
-            run_existing(proxy_server, proxy_username, proxy_password, existing_fb_users,
+            existing_fb_user = existing_fb_users[i]
+
+            run_existing(proxy_server, proxy_username, proxy_password, existing_fb_user,
                          existing_users_target_urls, existing_users_events, need_proxy)
 
 
