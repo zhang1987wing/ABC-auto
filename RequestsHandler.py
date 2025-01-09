@@ -80,38 +80,42 @@ def get_deviceid(system):
     # 设置请求的 URL 和参数
     url = 'https://luckycoin.im/growth-api/device/list'
 
-    # 发送 get 请求
-    response = requests.get(url)
-    device_list = []
+    try:
+        # 发送 get 请求
+        response = requests.get(url, timeout=60)
+        device_list = []
 
-    # 处理响应
-    if response.status_code == 200:
-        # 成功响应
-        data = response.json()  # 假设返回的是 JSON 格式
+        # 处理响应
+        if response.status_code == 200:
+            # 成功响应
+            data = response.json()  # 假设返回的是 JSON 格式
 
-        for system_info in data:
+            for system_info in data:
 
-            if system_info["platform"] == system:
-                device_list.append(system_info)
-                break
-
-            if system_info["host_os"] == system:
-                if system_info["platform"] == "Firefox":
-                    # device_list.append(system_info)
-                    continue
-                else:
+                if system_info["platform"] == system:
                     device_list.append(system_info)
+                    break
 
-                if system_info["platform"] in ["Safari", "Android", "iOS"]:
-                    continue
+                if system_info["host_os"] == system:
+                    if system_info["platform"] == "Firefox":
+                        # device_list.append(system_info)
+                        continue
+                    else:
+                        device_list.append(system_info)
+
+                    if system_info["platform"] in ["Safari", "Android", "iOS"]:
+                        continue
+                    else:
+                        device_list.append(system_info)
                 else:
-                    device_list.append(system_info)
-            else:
-                continue
-    else:
-        print(f"请求失败，状态码: {response.status_code}")
+                    continue
+        else:
+            print(f"请求失败，状态码: {response.status_code}")
 
-    return device_list
+        return device_list
+    except Exception as e:
+        print(f"请求失败: {e}")
+
 
 
 # handle_fb_user(1, "_ga:GA1.1.1318980546.1734180344;_ga_HNRD6KMSBG:GS1.1.1734180344.1.0.1734180350.0.0.0", 1)

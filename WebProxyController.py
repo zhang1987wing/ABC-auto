@@ -132,15 +132,17 @@ def run(device, log_file_path):
 
 fileName = LogUtils.get_log_filename()
 platform = "MacOS" if sys.platform == "darwin" else "Windows"
-
-device_list = RequestsHandler.get_deviceid(platform)
+device_list = []
 
 while True:
-    for device in device_list:
-        result = run(device, fileName)
+    if device_list is None or len(device_list) == 0:
+        device_list = RequestsHandler.get_deviceid(platform)
+    else:
+        for device in device_list:
+            result = run(device, fileName)
 
-        if LogUtils.check_log_file_size(fileName):
-            fileName = LogUtils.get_log_filename()
+            if LogUtils.check_log_file_size(fileName):
+                fileName = LogUtils.get_log_filename()
 
-        if result == 'skip':
-            continue
+            if result == 'skip':
+                continue
