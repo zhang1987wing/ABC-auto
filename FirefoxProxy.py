@@ -11,7 +11,7 @@ import WebProxy
 isMacOs = sys.platform == "darwin"
 
 
-def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users, target_urls, events, need_proxy):
+def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_user, target_urls, events, need_proxy):
     if not isMacOs:
         Utils.update_username('C:\\Users\\wingzhang\\Desktop\\proxy_dialog_handler\\firefox-username.txt',
                               PROXY_USERNAME)
@@ -56,7 +56,7 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
         driver.get("https://chat.sending.me/abc.html")
         time.sleep(2)
 
-        WebProxy.handle_existing(driver, existing_fb_users, target_urls, events)
+        WebProxy.handle_existing(driver, existing_fb_user, target_urls, events)
 
     except Exception as e:
         print(f"出错: {e}")

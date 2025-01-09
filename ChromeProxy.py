@@ -8,7 +8,7 @@ import RequestsHandler
 import WebProxy
 
 
-def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users, target_urls, events, need_proxy):
+def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_user, target_urls, events, need_proxy):
     global events_str
 
     # Chrome 浏览器选项
@@ -39,7 +39,7 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_users
             pyautogui.press("enter")
             time.sleep(0.5)
 
-        WebProxy.handle_existing(driver, existing_fb_users, target_urls, events)
+        WebProxy.handle_existing(driver, existing_fb_user, target_urls, events)
 
     except Exception as e:
         print(f"出错: {e}")

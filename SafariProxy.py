@@ -5,7 +5,7 @@ from selenium import webdriver
 import RequestsHandler
 import WebProxy
 
-def run_existing(existing_fb_users, target_urls, events):
+def run_existing(existing_fb_user, target_urls, events):
 
     # Safari 浏览器选项
     safari_options = webdriver.SafariOptions()
@@ -20,7 +20,7 @@ def run_existing(existing_fb_users, target_urls, events):
         driver.get("https://chat.sending.me/abc.html")
         time.sleep(2)
 
-        WebProxy.handle_existing(driver, existing_fb_users, target_urls, events)
+        WebProxy.handle_existing(driver, existing_fb_user, target_urls, events)
 
     except Exception as e:
         print(f"出错: {e}")

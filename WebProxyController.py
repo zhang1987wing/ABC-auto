@@ -103,20 +103,22 @@ def run(device, log_file_path):
 
             if existing_user_count > 0:
                 for i in range(existing_user_count):
+
+                    existing_fb_user = existing_fb_users[i]
+
                     if platform == "Chrome":
-                        ChromeProxy.run_existing(proxy_server, proxy_username, proxy_password, existing_fb_users,
+                        ChromeProxy.run_existing(proxy_server, proxy_username, proxy_password, existing_fb_user,
                                                  existing_users_target_urls, existing_users_events, need_proxy)
                     elif platform == "Firefox":
-                        FirefoxProxy.run_new(proxy_server, proxy_username, proxy_password, existing_users_target_urls,
-                                             existing_users_events,
-                                             device_id, created_by_task_id, need_proxy)
+                        FirefoxProxy.run_existing(proxy_server, proxy_username, proxy_password, existing_fb_user,
+                                                  existing_users_target_urls, existing_users_events, need_proxy)
                     elif platform == "Edge":
-                        EdgeProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls, new_users_events,
-                                          device_id, created_by_task_id, need_proxy)
+                        EdgeProxy.run_existing(proxy_server, proxy_username, proxy_password, existing_fb_user,
+                                               existing_users_target_urls, new_users_events, need_proxy)
                     elif platform == "Safari":
-                        SafariProxy.run_new(existing_users_target_urls, existing_users_events, device_id, created_by_task_id)
+                        SafariProxy.run_existing(existing_fb_user, existing_users_target_urls, existing_users_events)
                     else:
-                        ChromeProxy.run_existing(proxy_server, proxy_username, proxy_password, existing_fb_users,
+                        ChromeProxy.run_existing(proxy_server, proxy_username, proxy_password, existing_fb_user,
                                                  existing_users_target_urls, existing_users_events, need_proxy)
                     handle_existing_user += 1
 

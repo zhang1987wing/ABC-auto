@@ -44,7 +44,7 @@ def handle_newuser(driver, target_urls, events, device_id, created_by_task_id):
         time.sleep(20)
         RequestsHandler.handle_fb_user(device_id, cookie_string, created_by_task_id)
 
-def handle_existing(driver, existing_fb_users, target_urls, events):
+def handle_existing(driver, existing_fb_user, target_urls, events):
 
     # 设置用户行为
     driver.add_cookie({
@@ -52,34 +52,32 @@ def handle_existing(driver, existing_fb_users, target_urls, events):
         'value': ','.join(events)
     })
 
-    # 设置一个用户
-    for existing_fb_user in existing_fb_users:
+    # 清除用户Cookies
+    driver.delete_cookie("_ga")
+    driver.delete_cookie("_ga_822RN0ZE72")
 
-        # 清除用户Cookies
-        driver.delete_cookie("_ga")
-        driver.delete_cookie("_ga_822RN0ZE72")
+    cookies = [{
+        'name': existing_fb_user['data'].split(';')[0].split(':')[0],
+        'value': existing_fb_user['data'].split(';')[0].split(':')[1],
+    }, {
+        'name': existing_fb_user['data'].split(';')[1].split(':')[0],
+        'value': existing_fb_user['data'].split(';')[1].split(':')[1],
+    }]
+    for cookie in cookies:
+        driver.add_cookie(cookie)
 
-        cookies = [{
-            'name': existing_fb_user['data'].split(';')[0].split(':')[0],
-            'value': existing_fb_user['data'].split(';')[0].split(':')[1],
-        }, {
-            'name': existing_fb_user['data'].split(';')[1].split(':')[0],
-            'value': existing_fb_user['data'].split(';')[1].split(':')[1],
-        }]
-        for cookie in cookies:
-            driver.add_cookie(cookie)
+    # 确认是否已成功添加Cookie
+    cookies = driver.get_cookies()
+    print(cookies)  # 打印所有当前的Cookies
 
-        # 确认是否已成功添加Cookie
-        cookies = driver.get_cookies()
-        print(cookies)  # 打印所有当前的Cookies
+    for target_url in target_urls:
+        time.sleep(random.randint(1, 3))
 
-        for target_url in target_urls:
-            time.sleep(random.randint(1, 3))
+        driver.get(target_url)
+        print(target_url)
 
-            driver.get(target_url)
-            print(target_url)
+    time.sleep(20)
 
-        time.sleep(20)
 
 def run():
     # 配置代理和用户信息
