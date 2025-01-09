@@ -1,3 +1,5 @@
+import sys
+
 import ChromeProxy
 import EdgeProxy
 import FirefoxProxy
@@ -127,7 +129,10 @@ def run(device, log_file_path):
 # MacOS/Safari/Windows，如果是Safari，固定是9
 
 fileName = LogUtils.get_log_filename()
-device_list = RequestsHandler.get_deviceid("Windows")
+platform = "MacOS" if sys.platform == "darwin" else "Windows"
+
+device_list = RequestsHandler.get_deviceid(platform)
+
 while True:
     for device in device_list:
         result = run(device, fileName)
