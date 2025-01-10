@@ -60,7 +60,7 @@ def run(device, log_file_path):
         try:
             response = RequestsHandler.handle_task(device_id)
 
-            if response.status_code not in (200, 201) or response is None:
+            if response is None or response.status_code not in (200, 201):
                 return "skip"
 
             response_json = response.json()
@@ -81,14 +81,15 @@ def run(device, log_file_path):
             # random_server = random.choice(proxy_server)
             need_proxy = True
 
-            log_file.write(f"task_id: {created_by_task_id}, platform: {platform}, new_count: {new_count}, existing_user_count: {existing_user_count}\n")
+            log_file.write(f"task_id: {created_by_task_id}, platform: {platform}, new_count: {new_count}, "
+                           f"existing_user_count: {existing_user_count}\n")
 
             if new_count > 0:
                 for i in range(new_count):
                     if platform == "Chrome":
                         ChromeProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls,
                                             new_users_events, device_id, created_by_task_id, False, need_proxy)
-                    elif platform== "Firefox":
+                    elif platform == "Firefox":
                         FirefoxProxy.run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls,
                                              new_users_events, device_id, created_by_task_id, need_proxy)
                     elif platform == "Edge":
