@@ -106,13 +106,7 @@ def get_deviceid(system):
                     break
 
                 if system_info["host_os"] == system:
-                    if system_info["platform"] == "Firefox":
-                        # device_list.append(system_info)
-                        continue
-                    else:
-                        device_list.append(system_info)
-
-                    if system_info["platform"] in ["Safari", "Android", "iOS"]:
+                    if system_info["platform"] in ["Safari", "Android", "iOS", "Firefox"]:
                         continue
                     else:
                         device_list.append(system_info)
@@ -128,4 +122,4 @@ def get_deviceid(system):
 
 
 # handle_fb_user(1, "_ga:GA1.1.1318980546.1734180344;_ga_HNRD6KMSBG:GS1.1.1734180344.1.0.1734180350.0.0.0", 1)
-#get_deviceid("MacOS")
+#get_deviceid("Windows")
