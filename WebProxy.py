@@ -38,8 +38,13 @@ def handle_newuser(driver, target_urls, events, device_id, created_by_task_id, t
     cookies = driver.get_cookies()
     print(cookies)  # 打印所有当前的Cookies
 
-    cookie_string = ";".join([f"{cookie['name']}:{cookie['value']}" for cookie in cookies if
-                              cookie['name'] in ['_ga', '_ga_822RN0ZE72']])
+    if task_page == "chat":
+        cookie_string = ";".join([f"{cookie['name']}:{cookie['value']}" for cookie in cookies if
+                                  cookie['name'] in ['_ga', '_ga_822RN0ZE72']])
+    else:
+        cookie_string = ";".join([f"{cookie['name']}:{cookie['value']}" for cookie in cookies if
+                                  cookie['name'] in ['_ga', '_ga_QRKDFB98CL']])
+
     if cookie_string != "":
         time.sleep(20)
 

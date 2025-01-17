@@ -77,8 +77,14 @@ def run(device, log_file_path, task_page):
             new_count = response_json["new_user_count"]
             existing_user_count = response_json["existing_user_count"]
             existing_fb_users = response_json["existing_fb_users"]
-            new_users_target_urls = response_json["new_users_target_urls"]
-            existing_users_target_urls = response_json["existing_users_target_urls"]
+
+            if task_page == "chat":
+                new_users_target_urls = response_json["new_users_target_urls"]
+                existing_users_target_urls = response_json["existing_users_target_urls"]
+            else:
+                new_users_target_urls = ["https://quest.sending.me/"]
+                existing_users_target_urls = ["https://quest.sending.me/"]
+
             new_users_events = response_json["new_users_events"]
             existing_users_events = response_json["existing_users_events"]
             created_by_task_id = response_json["id"]
