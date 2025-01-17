@@ -12,6 +12,7 @@ def handle_newuser(driver, target_urls, events, device_id, created_by_task_id, t
     # 清除用户数据
     driver.delete_cookie("_ga")
     driver.delete_cookie("_ga_822RN0ZE72")
+    driver.delete_cookie("_ga_QRKDFB98CL")
 
     # 设置用户行为
     cookies = [{
