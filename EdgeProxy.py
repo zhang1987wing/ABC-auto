@@ -91,7 +91,7 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
             pyautogui.press("enter")
             time.sleep(2)
 
-        WebProxy.handle_newuser(driver, target_urls, events, device_id, created_by_task_id)
+        WebProxy.handle_newuser(driver, target_urls, events, device_id, created_by_task_id, task_page)
 
     except Exception as e:
         print(f"出错: {e}")

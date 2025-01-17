@@ -53,7 +53,7 @@ def run_new(target_urls, events, device_id, created_by_task_id, task_page):
 
         time.sleep(2)
 
-        WebProxy.handle_newuser(driver, target_urls, events, device_id, created_by_task_id)
+        WebProxy.handle_newuser(driver, target_urls, events, device_id, created_by_task_id, task_page)
 
     except Exception as e:
         print(f"出错: {e}")

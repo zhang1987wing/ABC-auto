@@ -8,7 +8,7 @@ import RequestsHandler
 import Utils
 
 
-def handle_newuser(driver, target_urls, events, device_id, created_by_task_id):
+def handle_newuser(driver, target_urls, events, device_id, created_by_task_id, task_page):
     # 清除用户数据
     driver.delete_cookie("_ga")
     driver.delete_cookie("_ga_822RN0ZE72")
@@ -42,7 +42,13 @@ def handle_newuser(driver, target_urls, events, device_id, created_by_task_id):
                               cookie['name'] in ['_ga', '_ga_822RN0ZE72']])
     if cookie_string != "":
         time.sleep(20)
-        RequestsHandler.handle_fb_user(device_id, cookie_string, created_by_task_id)
+
+        if task_page == "chat":
+            RequestsHandler.handle_fb_user(device_id, cookie_string, created_by_task_id)
+        else:
+            RequestsHandler.handle_quest_fb_user(device_id, cookie_string, created_by_task_id)
+
+
 
 def handle_existing(driver, existing_fb_user, target_urls, events):
 

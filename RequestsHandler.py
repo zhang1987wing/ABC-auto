@@ -56,7 +56,7 @@ def handle_chat_task(device_id):
 
 def handle_quest_task(device_id):
     # 设置请求的 URL 和参数
-    url = 'https://luckycoin.im/growth-api/task'
+    url = 'https://luckycoin.im/growth-api/quest_task'
 
     # 需要发送的数据（字典格式）
     data = {
@@ -114,6 +114,34 @@ def handle_fb_user(device_id, cookie, created_by_task_id):
         print(f"请求失败: {e}")
         return None
 
+def handle_quest_fb_user(device_id, cookie, created_by_task_id):
+    # 设置请求的 URL 和参数
+    url = 'https://luckycoin.im/growth-api/quest_fb_user'
+
+    # 需要发送的数据（字典格式）
+    data = {
+        "device_id": device_id,
+        "data": cookie,
+        "created_by_task_id": created_by_task_id
+    }
+
+    try:
+        # 发送 POST 请求
+        response = requests.post(url, json=data, timeout=60)
+        print(response.request.body)
+
+        # 处理响应
+        if response.status_code == 200 or response.status_code == 201:
+            # 成功响应
+            data = response.json()  # 假设返回的是 JSON 格式
+            print(data)
+        else:
+            print(f"请求失败，状态码: {response.status_code}")
+
+        return data
+    except Exception as e:
+        print(f"请求失败: {e}")
+        return None
 
 def get_deviceid(system):
     # 设置请求的 URL 和参数
