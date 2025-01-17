@@ -8,7 +8,8 @@ import RequestsHandler
 import WebProxy
 
 
-def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_user, target_urls, events, need_proxy):
+def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_user, target_urls, events, need_proxy,
+                 task_page):
     global events_str
 
     # Edge 浏览器选项
@@ -23,7 +24,11 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_user,
 
     try:
         # 打开目标网址
-        driver.get("https://chat.sending.me/abc.html")
+        if task_page == "chat":
+            driver.get("https://chat.sending.me/abc.html")
+        else:
+            driver.get("https://quest.sending.me/abc.html")
+
         time.sleep(2)
 
         if need_proxy:
@@ -49,7 +54,9 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_user,
         # 关闭浏览器
         driver.quit()
 
-def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, device_id, created_by_task_id, need_proxy):
+
+def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, device_id, created_by_task_id,
+            need_proxy, task_page):
     global events_str
 
     # Edge 浏览器选项
@@ -64,7 +71,11 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
 
     try:
         # 打开目标网址
-        driver.get("https://chat.sending.me/abc.html")
+        if task_page == "chat":
+            driver.get("https://chat.sending.me/abc.html")
+        else:
+            driver.get("https://quest.sending.me/abc.html")
+
         time.sleep(2)
 
         if need_proxy:
@@ -142,4 +153,4 @@ if __name__ == "__main__":
                 continue
     else:
         print("No command-line arguments provided.")
-    #run_new("proxy.stormip.cn:1000", "storm-shuaizhang4476", "zs19974476", [], [], 1, 1)
+    # run_new("proxy.stormip.cn:1000", "storm-shuaizhang4476", "zs19974476", [], [], 1, 1)

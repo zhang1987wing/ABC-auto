@@ -8,7 +8,8 @@ import RequestsHandler
 import WebProxy
 
 
-def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_user, target_urls, events, need_proxy):
+def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_user, target_urls, events, need_proxy,
+                 task_page):
     global events_str
 
     # Chrome 浏览器选项
@@ -23,7 +24,11 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_user,
 
     try:
         # 打开目标网址
-        driver.get("https://chat.sending.me/abc.html")
+        if task_page == "chat":
+            driver.get("https://chat.sending.me/abc.html")
+        else:
+            driver.get("https://quest.sending.me/abc.html")
+
         time.sleep(2)
 
         if need_proxy:
@@ -51,7 +56,7 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_user,
 
 
 def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, device_id, created_by_task_id,
-            isHeadless, need_proxy):
+            isHeadless, need_proxy, task_page):
     # Chrome 浏览器选项
     chrome_options = Options()
 
@@ -68,7 +73,11 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
 
     try:
         # 打开目标网址
-        driver.get("https://chat.sending.me/abc.html")
+        if task_page == "chat":
+            driver.get("https://chat.sending.me/abc.html")
+        else:
+            driver.get("https://quest.sending.me/abc.html")
+
         time.sleep(2)
 
         if not isHeadless and need_proxy:

@@ -5,8 +5,8 @@ from selenium import webdriver
 import RequestsHandler
 import WebProxy
 
-def run_existing(existing_fb_user, target_urls, events):
 
+def run_existing(existing_fb_user, target_urls, events, task_page):
     # Safari 浏览器选项
     safari_options = webdriver.SafariOptions()
 
@@ -17,7 +17,11 @@ def run_existing(existing_fb_user, target_urls, events):
 
     try:
         # 打开目标网址
-        driver.get("https://chat.sending.me/abc.html")
+        if task_page == "chat":
+            driver.get("https://chat.sending.me/abc.html")
+        else:
+            driver.get("https://quest.sending.me/abc.html")
+
         time.sleep(2)
 
         WebProxy.handle_existing(driver, existing_fb_user, target_urls, events)
@@ -30,8 +34,8 @@ def run_existing(existing_fb_user, target_urls, events):
         # 关闭浏览器
         driver.quit()
 
-def run_new(target_urls, events, device_id, created_by_task_id):
 
+def run_new(target_urls, events, device_id, created_by_task_id, task_page):
     # Safari 浏览器选项
     safari_options = webdriver.SafariOptions()
 
@@ -42,7 +46,11 @@ def run_new(target_urls, events, device_id, created_by_task_id):
 
     try:
         # 打开目标网址
-        driver.get("https://chat.sending.me/abc.html")
+        if task_page == "chat":
+            driver.get("https://chat.sending.me/abc.html")
+        else:
+            driver.get("https://quest.sending.me/abc.html")
+
         time.sleep(2)
 
         WebProxy.handle_newuser(driver, target_urls, events, device_id, created_by_task_id)
@@ -54,6 +62,7 @@ def run_new(target_urls, events, device_id, created_by_task_id):
     finally:
         # 关闭浏览器
         driver.quit()
+
 
 def controller(device_id, need_proxy):
     response = RequestsHandler.handle_task(device_id)

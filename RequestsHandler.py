@@ -24,7 +24,37 @@ requests_log = logging.getLogger("requests.packages.urllib3")
 requests_log.setLevel(logging.DEBUG)
 requests_log.addHandler(http_handler)
 
-def handle_task(device_id):
+def handle_chat_task(device_id):
+    # 设置请求的 URL 和参数
+    url = 'https://luckycoin.im/growth-api/task'
+
+    # 需要发送的数据（字典格式）
+    data = {
+        'device_id': device_id
+    }
+
+    try:
+
+        # 发送 POST 请求
+        response = requests.post(url, json=data, timeout=60)
+
+        '''
+        response = json.loads("{'id': 409, 'proxy': {'region': 'global', 'proxy_address': 'proxy.stormip.cn', 'proxy_port': 1000, 'proxy_username': 'storm-shuaizhang4476', "
+                              "'proxy_password': 'zs19974476'}, 'new_users_target_urls': ['https://chat.sending.me/#/home', 'https://chat.sending.me/#/discover', "
+                              "'https://chat.sending.me/#/room/!p13HU3XjRIXKGln2-@sdn_0ada666bc21e55ba55a5c36a7fe670c3b13b7579:0ada666bc21e55ba55a5c36a7fe670c3b13b7579'], "
+                              "'existing_users_target_urls': ['https://chat.sending.me/#/room/!p13HU3XjRIXKGln2-@sdn_0ada666bc21e55ba55a5c36a7fe670c3b13b7579:0ada666bc21e55ba55a5c36a7fe670c3b13b7579', "
+                              "'https://chat.sending.me/#/discover'], 'new_user_count': 2, 'existing_user_count': 0, 'existing_fb_users': [], 'new_users_events': "
+                              "['register', 'register_success', 'login', 'login_success', 'set_user_name', 'set_user_name_success', 'onboarding_success', 'sync_start', 'sync_completed', "
+                              "'read_message', 'room_join', 'room_join_success', 'send_message', 'send_message_success'], 'existing_users_events': ['sync_start', 'sync_completed', "
+                              "'room_join', 'room_join_success', 'read_message', 'send_message', 'send_message_success']}")
+                              '''
+
+        return response
+    except Exception as e:
+        print(f"请求失败: {e}")
+        return None
+
+def handle_quest_task(device_id):
     # 设置请求的 URL 和参数
     url = 'https://luckycoin.im/growth-api/task'
 

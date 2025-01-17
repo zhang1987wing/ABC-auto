@@ -11,7 +11,8 @@ import WebProxy
 isMacOs = sys.platform == "darwin"
 
 
-def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_user, target_urls, events, need_proxy):
+def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_user, target_urls, events, need_proxy,
+                 task_page):
     if not isMacOs:
         Utils.update_username('C:\\Users\\wingzhang\\Desktop\\proxy_dialog_handler\\firefox-username.txt',
                               PROXY_USERNAME)
@@ -53,7 +54,11 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_user,
             time.sleep(0.5)
 
         # 打开目标网址
-        driver.get("https://chat.sending.me/abc.html")
+        if task_page == "chat":
+            driver.get("https://chat.sending.me/abc.html")
+        else:
+            driver.get("https://quest.sending.me/abc.html")
+
         time.sleep(2)
 
         WebProxy.handle_existing(driver, existing_fb_user, target_urls, events)
@@ -68,7 +73,7 @@ def run_existing(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, existing_fb_user,
 
 
 def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, device_id, created_by_task_id,
-            need_proxy):
+            need_proxy, task_page):
     if not isMacOs:
         Utils.update_username('C:\\Users\\qmk\\Desktop\\proxy_dialog_handler\\firefox-username.txt', PROXY_USERNAME)
 
@@ -110,7 +115,11 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
             time.sleep(0.5)
 
         # 打开目标网址
-        driver.get("https://chat.sending.me/abc.html")
+        if task_page == "chat":
+            driver.get("https://chat.sending.me/abc.html")
+        else:
+            driver.get("https://quest.sending.me/abc.html")
+
         time.sleep(2)
 
         WebProxy.handle_newuser(driver, target_urls, events, device_id, created_by_task_id)
