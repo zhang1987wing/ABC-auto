@@ -1,3 +1,3 @@
 @echo off
-python WebProxyController.py 1234
+python WebProxyController.py %*
 pause

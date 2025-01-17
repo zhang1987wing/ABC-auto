@@ -1,2 +1,2 @@
 #!/bin/bash
-python3 WebProxyController.py
+python3 WebProxyController.py "$@"
