@@ -134,7 +134,7 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
 
 
 def controller(device_id, need_proxy):
-    response = RequestsHandler.handle_task(device_id)
+    response = RequestsHandler.handle_chat_task(device_id)
 
     if response.status_code not in (200, 201):
         return "skip"
@@ -159,18 +159,40 @@ def controller(device_id, need_proxy):
     if new_count > 0:
         for i in range(new_count):
             run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls,
-                    new_users_events, device_id, created_by_task_id, need_proxy)
+                    new_users_events, device_id, created_by_task_id, need_proxy, "chat")
 
     if existing_user_count > 0:
         for i in range(existing_user_count):
             existing_fb_user = existing_fb_users[i]
 
             run_existing(proxy_server, proxy_username, proxy_password, existing_fb_user,
-                         existing_users_target_urls, existing_users_events, need_proxy)
+                         existing_users_target_urls, existing_users_events, need_proxy,
+                         "chat")
+
+
+def test_firefox():
+    # Chrome 浏览器选项
+    firefox_options = Options()
+
+    # 初始化 ChromeDriver
+    driver = webdriver.Firefox(options=firefox_options)
+
+    try:
+        driver.get("https://www.baidu.com/")
+
+        time.sleep(2)
+
+    except Exception as e:
+        print(f"出错: {e}")
+        raise
+
+    finally:
+        # 关闭浏览器
+        driver.quit()
 
 
 if __name__ == "__main__":
-
+    '''
     device_id = 0
 
     if len(sys.argv) > 1:
@@ -184,5 +206,6 @@ if __name__ == "__main__":
                 continue
     else:
         print("No command-line arguments provided.")
+    '''
 
 # run_new("proxy.stormip.cn:1000", "storm-shuaizhang4476", "zs19974476", [], [], 1, 1, False)
