@@ -105,7 +105,7 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
 
 
 def controller(device_id, need_proxy):
-    response = RequestsHandler.handle_task(device_id)
+    response = RequestsHandler.handle_chat_task(device_id)
 
     if response.status_code not in (200, 201):
         return "skip"
