@@ -104,6 +104,27 @@ def run_new(PROXY_SERVER, PROXY_USERNAME, PROXY_PASSWORD, target_urls, events, d
         driver.quit()
 
 
+def test_chrome():
+    # Chrome 浏览器选项
+    chrome_options = Options()
+
+    # 初始化 ChromeDriver
+    driver = webdriver.Chrome(options=chrome_options)
+
+    try:
+        driver.get("https://www.baidu.com/")
+
+        time.sleep(2)
+
+    except Exception as e:
+        print(f"出错: {e}")
+        raise
+
+    finally:
+        # 关闭浏览器
+        driver.quit()
+
+
 def controller(device_id, need_proxy):
     response = RequestsHandler.handle_chat_task(device_id)
 
@@ -144,6 +165,7 @@ def controller(device_id, need_proxy):
 
 if __name__ == "__main__":
 
+    '''
     device_id = 0
 
     if len(sys.argv) > 1:
@@ -157,4 +179,6 @@ if __name__ == "__main__":
                 continue
     else:
         print("No command-line arguments provided.")
+    '''
+    test_chrome()
     # run_new("proxy.stormip.cn:1000", "storm-shuaizhang4476", "zs19974476", [], [], 1, 1, False)
