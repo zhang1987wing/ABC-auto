@@ -130,14 +130,16 @@ def controller(device_id, need_proxy):
     if new_count > 0:
         for i in range(new_count):
             run_new(proxy_server, proxy_username, proxy_password, new_users_target_urls,
-                    new_users_events, device_id, created_by_task_id, False, need_proxy)
+                    new_users_events, device_id, created_by_task_id, False, need_proxy,
+                    "chat")
 
     if existing_user_count > 0:
         for i in range(existing_user_count):
             existing_fb_user = existing_fb_users[i]
 
             run_existing(proxy_server, proxy_username, proxy_password, existing_fb_user,
-                         existing_users_target_urls, existing_users_events, need_proxy)
+                         existing_users_target_urls, existing_users_events, need_proxy,
+                         "chat")
 
 
 if __name__ == "__main__":
