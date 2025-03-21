@@ -195,14 +195,21 @@ def trade_relation(data):
 
 if __name__ == "__main__":
 
+    platform = "MacOS" if sys.platform == "darwin" else "Windows"
+
     # 定义浏览器路径
-    chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+    if platform == "MacOS":
+        chrome_path = r"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+        user_data_dir = "/Users/qmk/Library/Application Support/Google/Chrome/Profile 1"
+    else:
+        chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
+        user_data_dir = "C:\\temp\\chrome_profile"
 
     # 启动 Chrome 浏览器，设置调试端口为 9222
     subprocess.Popen([
         chrome_path,
         "--remote-debugging-port=9222",  # 开启远程调试端口
-        "--user-data-dir=C:\\temp\\chrome_profile",  # 使用特定的用户配置文件
+        f"--user-data-dir={user_data_dir}",  # 使用特定的用户配置文件
         "--disable-gpu"
     ])
 
