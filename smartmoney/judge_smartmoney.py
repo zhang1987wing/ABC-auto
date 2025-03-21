@@ -16,6 +16,7 @@ def test_chrome(wallet):
 
     # 通过 Selenium 连接到已打开的浏览器
     driver = webdriver.Chrome(options=chrome_options)
+    results = []
 
     try:
         driver.get(f"https://gmgn.ai/sol/address/{wallet}")
@@ -81,8 +82,6 @@ def test_chrome(wallet):
         buy_count = convert_number(buy_count_str)
         sell_count = convert_number(sell_count_str)
 
-        results = []
-
         if profit < 0:
             result = f'最近30天负盈利'
         elif 0 <= profit < 2000:
@@ -99,29 +98,15 @@ def test_chrome(wallet):
         print(f'{wallet}：{result}')
         results.append({'wallet': wallet, 'result': result})
 
-        # 将结果转换为DataFrame
-        df = pd.DataFrame(results)
-
-        # 文件名
-        file_name = 'wallet_report.xlsx'
-
-        if os.path.exists(file_name):
-            # 文件存在时追加数据
-            with pd.ExcelWriter(file_name, mode='a', engine='openpyxl', if_sheet_exists='overlay') as writer:
-                start_row = writer.sheets['Sheet1'].max_row  # 获取已有数据的最后一行
-                df.to_excel(writer, index=False, header=False, startrow=start_row)
-        else:
-            # 文件不存在时创建新文件
-            df.to_excel(file_name, index=False)
-
-        print("\n结果已追加到 wallet_report.xlsx ✅")
-
     except Exception as e:
         print(f"出错: {wallet}, {e}")
+        results.append({'wallet': wallet, 'result': "未获取到足够信息，分析失败"})
 
     finally:
         # 关闭浏览器
         driver.quit()
+
+    save_excel(results)
 
 
 def convert_number(profit_str):
@@ -190,11 +175,30 @@ def trade_relation(data):
     return ''
 
 
+def save_excel(data):
+    # 将结果转换为DataFrame
+    df = pd.DataFrame(data)
+
+    # 文件名
+    file_name = 'wallet_report.xlsx'
+
+    if os.path.exists(file_name):
+        # 文件存在时追加数据
+        with pd.ExcelWriter(file_name, mode='a', engine='openpyxl', if_sheet_exists='overlay') as writer:
+            start_row = writer.sheets['Sheet1'].max_row  # 获取已有数据的最后一行
+            df.to_excel(writer, index=False, header=False, startrow=start_row)
+    else:
+        # 文件不存在时创建新文件
+        df.to_excel(file_name, index=False)
+
+    print("\n结果已追加到 wallet_report.xlsx ✅")
+
+
 if __name__ == "__main__":
 
     platform = "MacOS" if sys.platform == "darwin" else "Windows"
 
-    #https://docs.google.com/spreadsheets/d/1gd-U3ZVBtLRzK18SgejyRM_x3bOBOMqCcl3bX2nE3fo/edit?gid=1825080980#gid=1825080980
+    # https://docs.google.com/spreadsheets/d/1gd-U3ZVBtLRzK18SgejyRM_x3bOBOMqCcl3bX2nE3fo/edit?gid=1825080980#gid=1825080980
     # 定义浏览器路径
     if platform == "MacOS":
         chrome_path = r"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
