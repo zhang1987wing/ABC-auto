@@ -24,6 +24,7 @@ requests_log = logging.getLogger("requests.packages.urllib3")
 requests_log.setLevel(logging.DEBUG)
 requests_log.addHandler(http_handler)
 
+
 def handle_chat_task(device_id):
     # 设置请求的 URL 和参数
     url = 'https://luckycoin.im/growth-api/task'
@@ -53,6 +54,7 @@ def handle_chat_task(device_id):
     except Exception as e:
         print(f"请求失败: {e}")
         return None
+
 
 def handle_quest_task(device_id):
     # 设置请求的 URL 和参数
@@ -114,6 +116,7 @@ def handle_fb_user(device_id, cookie, created_by_task_id):
         print(f"请求失败: {e}")
         return None
 
+
 def handle_quest_fb_user(device_id, cookie, created_by_task_id):
     # 设置请求的 URL 和参数
     url = 'https://luckycoin.im/growth-api/quest_fb_user'
@@ -142,6 +145,7 @@ def handle_quest_fb_user(device_id, cookie, created_by_task_id):
     except Exception as e:
         print(f"请求失败: {e}")
         return None
+
 
 def get_deviceid(system):
     # 设置请求的 URL 和参数
@@ -177,7 +181,5 @@ def get_deviceid(system):
     except Exception as e:
         print(f"请求失败: {e}")
 
-
-
 # handle_fb_user(1, "_ga:GA1.1.1318980546.1734180344;_ga_HNRD6KMSBG:GS1.1.1734180344.1.0.1734180350.0.0.0", 1)
-#get_deviceid("Windows")
+# get_deviceid("Windows")
