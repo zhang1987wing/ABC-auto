@@ -198,7 +198,7 @@ if __name__ == "__main__":
 
     platform = "MacOS" if sys.platform == "darwin" else "Windows"
 
-    # https://docs.google.com/spreadsheets/d/103m83K1E7vSdhGkbbW8Vui5wkRdrqGYRLOW_yqYGBwg/edit?usp=sharing
+    # https://docs.google.com/spreadsheets/d/1rZip73wnKvfFu6bSszgzAae-F4jrvz2dbEWR4mEYIns/edit
     # 定义浏览器路径
     if platform == "MacOS":
         chrome_path = r"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
